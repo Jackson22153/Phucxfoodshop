@@ -1,0 +1,64 @@
+services:
+  mysql:
+    image: jackson22153/phucxmysql:3.0.0
+    container_name: mysql
+    ports:
+      - 3305:3306
+    volumes:
+      - D:\thuchanh\sts\docker-storage\mysql:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=10122003simp!simp
+    networks:
+      - phucx
+
+  phucxfoodshop:
+    image: jackson22153/phucxfoodshop:1.0.0
+    ports:
+      - 8081:8081
+    container_name: phucxfoodshop
+    volumes:
+      - D:\thuchanh\sts\docker-storage\image\product:/usr/src/app/image/product
+      - D:\thuchanh\sts\docker-storage\image\category:/usr/src/app/image/category
+      - D:\thuchanh\sts\docker-storage\image\customer:/usr/src/app/image/customer
+      - D:\thuchanh\sts\docker-storage\image\employee:/usr/src/app/image/employee
+    depends_on:
+      - mysql
+    restart: unless-stopped
+    environment:
+      - WAIT_FOR_DATABASE=true
+      - PHUCXFOODSHOP_DEV_URL=http://localhost:8081
+      - REDIRECT_PAYMENT_URL=http://localhost:8081/payment
+      - PAYMENT_SUCCESSFUL_URL=http://localhost:5173/order?status=successful
+      - PAYMENT_CANCELED_URL=http://localhost:5173/order?status=canceled
+      - UI_URL=http://localhost:5173
+      - MYSQL_USERNAME=root
+      - MYSQL_PASSWORD=10122003simp!simp
+      - MYSQL_URL=jdbc:mysql://mysql:3306/phucxfoodshop
+      - TWILIO_CLIENT_ID={TWILIO_CLIENT_ID}
+      - TWILIO_CLIENT_SECRET={TWILIO_CLIENT_SECRET}
+      - TWILIO_SERVICE_SID={TWILIO_SERVICE_SID}
+      - PAYPAL_CLIENT_ID={PAYPAL_CLIENT_ID}
+      - PAYPAL_CLIENT_SECRET={PAYPAL_CLIENT_SECRET}
+      - PRODUCT_IMAGE_LOCATION=/usr/src/app/image/product
+      - CATEGORY_IMAGE_LOCATION=/usr/src/app/image/category
+      - CUSTOMER_IMAGE_LOCATION=/usr/src/app/image/customer
+      - EMPLOYEE_IMAGE_LOCATION=/usr/src/app/image/employee
+      - MAIL_USERNAME={MAIL_USERNAME}
+      - MAIL_PASSWORD={MAIL_PASSWORD}
+      - SHIP_SHOP_ID={SHIP_SHOP_ID}
+      - SHIP_TOKEN=f{SHIP_TOKEN}
+    networks:
+      - phucx
+
+  foodshopui:
+    image: jackson22153/phucxfoodshopui:1.0.0
+    container_name: foodshopui
+    ports:
+      - 5173:80
+    environment:
+      - PHUCX_API_URL=http://localhost:8081
+    networks:
+      - phucx
+
+networks:
+  phucx:

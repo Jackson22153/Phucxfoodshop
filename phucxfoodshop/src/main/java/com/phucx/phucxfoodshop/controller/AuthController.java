@@ -1,0 +1,129 @@
+package com.phucx.phucxfoodshop.controller;
+
+import java.net.URI;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.phucx.phucxfoodshop.exceptions.InvalidTokenException;
+import com.phucx.phucxfoodshop.exceptions.NotFoundException;
+import com.phucx.phucxfoodshop.exceptions.UserAuthenticationException;
+import com.phucx.phucxfoodshop.exceptions.UserNotFoundException;
+import com.phucx.phucxfoodshop.exceptions.UserPasswordException;
+import com.phucx.phucxfoodshop.model.ResponseFormat;
+import com.phucx.phucxfoodshop.model.UserAuthentication;
+import com.phucx.phucxfoodshop.model.UserChangePasswordToken;
+import com.phucx.phucxfoodshop.model.UserInfo;
+import com.phucx.phucxfoodshop.model.UserRegisterInfo;
+import com.phucx.phucxfoodshop.service.email.EmailService;
+import com.phucx.phucxfoodshop.service.user.UserPasswordService;
+import com.phucx.phucxfoodshop.service.user.UserProfileService;
+import com.phucx.phucxfoodshop.service.user.UserService;
+
+import io.swagger.v3.oas.annotations.Operation;
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@RestController
+@RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+public class AuthController {
+    @Autowired
+    private UserProfileService userProfileService;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private UserPasswordService userPasswordService;
+    @Autowired
+    private EmailService emailService;
+    @Value("${phucx.ui-url}")
+    private String uiUrl;
+
+    @Operation(tags = {"public", "get"}, summary = "Login endpoint",
+        description = "Send a get request to /login endpoint as a Basic Authentication")
+    @GetMapping("/login")
+    public ResponseEntity<UserAuthentication> login(Authentication authentication) throws UserNotFoundException{
+        UserAuthentication userAuthentication = userProfileService
+            .getUserAuthentication(authentication);
+        
+        return ResponseEntity.ok().body(userAuthentication);
+    }
+
+    @Operation(tags = {"public", "post", "register"}, summary = "Customer register endpoint")
+    @PostMapping("/register")
+    public ResponseEntity<ResponseFormat> register(HttpServletRequest request, 
+        @RequestBody UserRegisterInfo userRegisterInfo) throws UserAuthenticationException{
+
+        Boolean status = userService.registerCustomer(userRegisterInfo);
+        String email = userRegisterInfo.getEmail();
+        String username = userRegisterInfo.getUsername();
+        emailService.sendVerificationEmail(email, username, this.getBaseUrl(request));
+        ResponseFormat responseFormat = new ResponseFormat();
+        responseFormat.setMessage("A message has been sent to your email");
+        responseFormat.setStatus(status);
+        return ResponseEntity.ok().body(responseFormat);
+    }
+
+    @Operation(tags = {"public", "get"}, summary = "User verification email")
+    @GetMapping("/verify")
+    public ResponseEntity<Void> verifyEmail(@RequestParam String token){
+        Boolean result = emailService.validateEmail(token);
+        String redirectUrl = uiUrl + "/auth";
+        if(result){
+            redirectUrl += "?status=true";
+        }else{
+            redirectUrl += "?status=false";
+        }
+        return ResponseEntity.status(HttpStatus.FOUND)
+            .location(URI.create(redirectUrl)).build();
+    }
+
+    @Operation(summary = "Send a email to user", tags = {"public", "get", "forgot password"},
+        description = "Send a reset password link to user via email")
+    @PostMapping("/forgot")
+    public ResponseEntity<ResponseFormat> forgotEmail(HttpServletRequest request,
+        @RequestParam(name = "email") String email) {
+
+        Boolean result = userPasswordService.sendResetPasswordLink(uiUrl, email);
+        ResponseFormat responseFormat = new ResponseFormat(result);
+        return ResponseEntity.ok().body(responseFormat);
+    }
+
+    @Operation(summary = "Verfiy a reset password token", tags = {"public", "get", "verify reset token"})
+    @GetMapping("/verifyReset")
+    public ResponseEntity<UserInfo> verifyResetToken(
+        @RequestParam(name = "token", required = true) String token
+    ) throws NotFoundException, InvalidTokenException {
+        UserInfo userInfo = userPasswordService.getUserByResetToken(token);
+        return ResponseEntity.ok().body(userInfo);
+    }
+
+    @Operation(summary = "Reset user's password", tags = {"public", "get", "reset password"})
+    @PostMapping("/reset")
+    public ResponseEntity<ResponseFormat> resetPassword(
+        @RequestBody UserChangePasswordToken userChangePasswordToken
+    ) throws UserPasswordException, InvalidTokenException {
+        Boolean status = userPasswordService.resetUserPassword(userChangePasswordToken);
+        ResponseFormat responseFormat = new ResponseFormat(status);
+        return ResponseEntity.ok().body(responseFormat);
+    }
+    
+
+    // get base url
+    private String getBaseUrl(HttpServletRequest request){
+        String uri = request.getRequestURI().toString();
+        String url = request.getRequestURL().toString();
+        String baseurl = url.substring(0, url.length()-uri.length());
+        return baseurl;
+    }
+}
