@@ -257,17 +257,14 @@ public class ProductServiceImp implements ProductService{
 
     private Boolean updateProductsInStock(List<ProductStockTableType> productStocks) {
         log.info("updateProductsInStock(productStocks={})", productStocks);
-        List<String> productIDs = new ArrayList<>();
-        List<String> unitsInStocks = new ArrayList<>();
+        Boolean result = true;
         for (ProductStockTableType productStock : productStocks) {
-            productIDs.add(String.valueOf(productStock.getProductID()));
-            unitsInStocks.add(String.valueOf(productStock.getUnitsInStock()));
+            Boolean status = productRepository.updateProductUnitsInStock(
+                productStock.getProductID(), 
+                productStock.getUnitsInStock());
+            result = result && status;
         }
-        String productIDsStr = String.join(",", productIDs);
-        String unitsInStocksStr = String.join(",", unitsInStocks);
-        
-        Boolean status = productRepository.updateProductsUnitsInStock(productIDsStr, unitsInStocksStr);
-        return status;
+        return result;
     }
 
     @Override
@@ -282,16 +279,21 @@ public class ProductServiceImp implements ProductService{
                 .map(ProductDiscountsDTO::getProductID)
                 .collect(Collectors.toList());
             // get products
-            List<Product> fetchedProducts = productRepository.findAllById(productIDs);    
+            List<Product> fetchedProducts = productRepository
+                .findAllById(productIDs);    
             // validate discounts
-            ResponseFormat isValidDiscounts = validateDiscountService.validateDiscountsOfProducts(products);
-            if(!isValidDiscounts.getStatus()) throw new InvalidDiscountException(isValidDiscounts.getError());
+            ResponseFormat isValidDiscounts = validateDiscountService
+                .validateDiscountsOfProducts(products);
+            if(!isValidDiscounts.getStatus()) 
+                throw new InvalidDiscountException(isValidDiscounts.getError());
             
             // validate and update product inStock with order product quantity
             for(ProductDiscountsDTO product : products){
                 // get product
                 Product fetchedProduct = findProduct(fetchedProducts, product.getProductID())
-                    .orElseThrow(()-> new NotFoundException("Product "+product.getProductID()+" does not found"));
+                    .orElseThrow(()-> 
+                        new NotFoundException("Product "+product.getProductID()+" does not found")
+                    );
                 // check whether the product is discontinued or not?
                 if(fetchedProduct.getDiscontinued().equals(ProductStatus.Discontinued.getStatus()))
                     throw new RuntimeException("Product " + fetchedProduct.getProductName() + " is discontinued");
@@ -299,7 +301,9 @@ public class ProductServiceImp implements ProductService{
                 int orderQuantity = product.getQuantity();
                 int inStocks = fetchedProduct.getUnitsInStock();
                 if(orderQuantity>inStocks){
-                    throw new InSufficientInventoryException("Product " + fetchedProduct.getProductName()+ " does not have enough stocks in inventory");
+                    throw new InSufficientInventoryException(
+                        "Product " + fetchedProduct.getProductName() + 
+                        " does not have enough stocks in inventory");
                 }
                 // add product new in stock
                 ProductStockTableType newProductStock = new ProductStockTableType();
@@ -371,17 +375,26 @@ public class ProductServiceImp implements ProductService{
                 .flatMap(product -> product.getDiscountIDs().stream())
                 .collect(Collectors.toList());
             if(discountIds!=null && !discountIds.isEmpty()){
-                ResponseFormat isValidDiscounts = validateDiscountService.validateDiscountsOfProducts(products);
-                if(!isValidDiscounts.getStatus()) throw new InvalidDiscountException(isValidDiscounts.getError());
+                ResponseFormat isValidDiscounts = validateDiscountService
+                    .validateDiscountsOfProducts(products);
+                if(!isValidDiscounts.getStatus()) 
+                    throw new InvalidDiscountException(isValidDiscounts.getError());
             }
             // validate products
             for(ProductDiscountsDTO product : products){
                 // get product
                 Product fetchedProduct = findProduct(fetchedProducts, product.getProductID())
-                    .orElseThrow(()-> new NotFoundException("Product "+product.getProductID()+" does not found"));
+                    .orElseThrow(()-> 
+                        new NotFoundException("Product "+product.getProductID()+" does not found")
+                    );
+                // check customer product quantity
+                if(fetchedProduct.getUnitsInStock()<product.getQuantity()){
+                    throw new RuntimeException("Product " + fetchedProduct.getProductName() + " exceeds available stock!");
+                }
                 // check whether the product is discontinued or not?
-                if(fetchedProduct.getDiscontinued().equals(ProductStatus.Discontinued.getStatus()))
+                if(fetchedProduct.getDiscontinued().equals(ProductStatus.Discontinued.getStatus())){
                     throw new RuntimeException("Product " + fetchedProduct.getProductName() + " is discontinued");
+                }
             }
             responseFormat.setStatus(true);
 

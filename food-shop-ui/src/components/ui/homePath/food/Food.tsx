@@ -82,6 +82,7 @@ export default function FoodComponent(){
             const res = await addProductToCart([cartProduct]);
             if(res.status){
                 const numberProducts = numberOfProductsInCart();
+
                 setNumberOfCartProducts(numberProducts)
                 setAlert({
                     message: `${foodInfo.productName} has been added!`,
@@ -90,13 +91,19 @@ export default function FoodComponent(){
                 })
             }
         } catch (error) {
-            const errorResponse  = error.response
+            const errorResponse  = error.response;
             if(errorResponse){
                 const status = errorResponse.status;
                 if(status===401){
                     setModal({
                         title: "Authentication required!",
                         message: "You need authentication to add this product to your cart!",
+                        isShowed: true
+                    })
+                }else if(status===400){
+                    setAlert({
+                        message: `${errorResponse.data.error}`,
+                        type: ALERT_TYPE.DANGER,
                         isShowed: true
                     })
                 }

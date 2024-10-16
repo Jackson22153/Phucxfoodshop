@@ -14,7 +14,9 @@ import com.phucx.phucxfoodshop.model.Category;
 
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Integer> {
-    
+    @Query("""
+        SELECT c FROM Category c WHERE c.categoryName=?1
+            """)
     Optional<Category> findByCategoryName(String categoryName);
 
     @Procedure("AddCategory")

@@ -5,4 +5,9 @@ VOLUME [ "/usr/src/app/image/customer" ]
 VOLUME [ "/usr/src/app/image/employee" ]
 VOLUME [ "/usr/src/app/image/product" ]
 VOLUME [ "/usr/src/app/image/category" ]
+
+COPY /image/ /usr/src/app/image/
+
+EXPOSE 8081
+
 ENTRYPOINT [ "bash", "./entrypoint.sh" ]

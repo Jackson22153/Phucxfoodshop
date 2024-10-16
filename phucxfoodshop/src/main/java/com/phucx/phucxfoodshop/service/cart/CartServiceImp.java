@@ -322,7 +322,9 @@ public class CartServiceImp implements CartService{
     public CartOrderInfo addProduct(String encodedCartJson, List<CartProduct> cartProducts,
             HttpServletResponse response) throws JsonProcessingException, InsufficientResourcesException, NotFoundException {
         log.info("addProduct(encodedCartJson={}, cartProducts={})", encodedCartJson, cartProducts);
-        if(cartProducts==null || cartProducts.isEmpty()){ throw new NotFoundException("Product does not found");}
+        if(cartProducts==null || cartProducts.isEmpty()){ 
+            throw new NotFoundException("Product does not found");
+        }
         // get existed cart from json format
         TypeReference<List<CartProduct>> typeRef = new TypeReference<List<CartProduct>>() {};
         List<CartProduct> items = new ArrayList<>();
@@ -331,15 +333,22 @@ public class CartServiceImp implements CartService{
             items = objectMapper.readValue(cartJson, typeRef);
         }
         // fetch product 
-        List<Integer> productIDs = cartProducts.stream().map(CartProduct::getProductID).collect(Collectors.toList());
-        List<CurrentProduct> fetchedProducts = this.productService.getCurrentProducts(productIDs);
+        List<Integer> productIDs = cartProducts.stream()
+            .map(CartProduct::getProductID)
+            .collect(Collectors.toList());
+        List<CurrentProduct> fetchedProducts = this.productService
+            .getCurrentProducts(productIDs);
 
         for (CurrentProduct currentProduct : fetchedProducts) {
             CartProduct cartProduct = this.findProduct(cartProducts, currentProduct.getProductID())
-                .orElseThrow(()-> new NotFoundException("Product " + currentProduct.getProductID() + " name " + currentProduct.getProductName() + " does not found"));
+                .orElseThrow(()-> new NotFoundException("Product " + currentProduct.getProductID() + 
+                    " name " + currentProduct.getProductName() + " does not found"));
+            Optional<CartProduct> itemInCart = this.findProduct(items, currentProduct.getProductID());
+            Integer quantityInCart = itemInCart.isPresent()?itemInCart.get().getQuantity():0;
             // check product's quantity with product's inStocks
-            if(currentProduct.getUnitsInStock()<cartProduct.getQuantity())
-                throw new InsufficientResourcesException("Product " + currentProduct.getProductName() + " exceeds available stock");
+            if(currentProduct.getUnitsInStock()<cartProduct.getQuantity()+quantityInCart)
+                throw new InsufficientResourcesException("Product " + currentProduct.getProductName() + 
+                    " exceeds available stock");
             
             // check whether the product exists in cart or not
             boolean isExisted = false;

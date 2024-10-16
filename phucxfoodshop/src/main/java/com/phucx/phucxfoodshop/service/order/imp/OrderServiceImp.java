@@ -140,20 +140,24 @@ public class OrderServiceImp implements OrderService{
             return responseFormat;
         }
 
-        List<ProductDiscountsDTO> productDiscountsDTOs = order.getProducts().stream().map((product) -> {
-            // get discountIDs
-            List<String> discountIDs = product.getDiscounts().stream()
-                .map(OrderItemDiscount::getDiscountID).collect(Collectors.toList());
-            // get applieddate
-            LocalDateTime currenTime = null;
-            if(!discountIDs.isEmpty()){
-                currenTime = product.getDiscounts().get(0).getAppliedDate();
-            }
-            return new ProductDiscountsDTO(product.getProductID(), product.getQuantity(), discountIDs, currenTime);
-        }).collect(Collectors.toList());
+        List<ProductDiscountsDTO> productDiscountsDTOs = order.getProducts().stream()
+            .map((product) -> {
+                // get discountIDs
+                List<String> discountIDs = product.getDiscounts().stream()
+                    .map(OrderItemDiscount::getDiscountID)
+                    .collect(Collectors.toList());
+                // get applieddate
+                LocalDateTime currenTime = null;
+                if(!discountIDs.isEmpty()){
+                    currenTime = product.getDiscounts().get(0).getAppliedDate();
+                }
+                return new ProductDiscountsDTO(product.getProductID(), 
+                    product.getQuantity(), discountIDs, currenTime);
+            }).collect(Collectors.toList());
 
         // validate products
-        ResponseFormat responseFormat = productService.validateProducts(productDiscountsDTOs);
+        ResponseFormat responseFormat = productService
+            .validateAndProcessProducts(productDiscountsDTOs);
         return responseFormat;
     }
     

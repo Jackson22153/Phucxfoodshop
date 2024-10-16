@@ -2,9 +2,9 @@ CREATE DATABASE  IF NOT EXISTS `phucxfoodshop` /*!40100 DEFAULT CHARACTER SET ut
 USE `phucxfoodshop`;
 -- MySQL dump 10.13  Distrib 8.0.38, for Win64 (x86_64)
 --
--- Host: localhost    Database: phucxfoodshop
+-- Host: database-1.cvyko0u6s0z1.us-east-1.rds.amazonaws.com    Database: phucxfoodshop
 -- ------------------------------------------------------
--- Server version	9.0.1
+-- Server version	8.0.35
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,6 +16,14 @@ USE `phucxfoodshop`;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+SET @MYSQLDUMP_TEMP_LOG_BIN = @@SESSION.SQL_LOG_BIN;
+SET @@SESSION.SQL_LOG_BIN= 0;
+
+--
+-- GTID state at the beginning of the backup 
+--
+
+SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ '';
 
 --
 -- Table structure for table `categories`
@@ -69,7 +77,7 @@ CREATE TABLE `creditcard` (
 
 LOCK TABLES `creditcard` WRITE;
 /*!40000 ALTER TABLE `creditcard` DISABLE KEYS */;
-INSERT INTO `creditcard` VALUES ('2d073a15-78c1-4b30-9521-8948a815a359',_binary '\ŸrØÆWÚúâ¶3¯\Áb',_binary '\Ì†Ω#Iˆú%ø¡c*}ãcHc%:\⁄≥<V,?—∫~',_binary '\‚§7\Z7†ò\Â’ï&¸',_binary 'øwPâ>/˘$I\ƒ\›','3072e836-7469-454d-9165-e7761f3f2eb7'),('6ce0e3b2-29ed-4a2a-9a83-05da85e1afaa',NULL,NULL,NULL,NULL,'704c1690-d96b-4258-bbea-061ac2261ccd');
+INSERT INTO `creditcard` VALUES ('2d073a15-78c1-4b30-9521-8948a815a359',_binary 'ÔøΩrÔøΩÔøΩWÔøΩÔøΩÔøΩ3ÔøΩÔøΩb',_binary 'ÔøΩÔøΩÔøΩ#IÔøΩÔøΩ%ÔøΩÔøΩc*}ÔøΩcHc%:ÔøΩÔøΩ<V,?—∫~',_binary 'ÔøΩÔøΩ7\Z7ÔøΩÔøΩÔøΩ’ï&ÔøΩ',_binary 'ÔøΩwPÔøΩ>/ÔøΩ$IÔøΩÔøΩÔøΩ','3072e836-7469-454d-9165-e7761f3f2eb7'),('6ce0e3b2-29ed-4a2a-9a83-05da85e1afaa',NULL,NULL,NULL,NULL,'704c1690-d96b-4258-bbea-061ac2261ccd');
 /*!40000 ALTER TABLE `creditcard` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -954,7 +962,7 @@ CREATE TABLE `userprofile` (
 
 LOCK TABLES `userprofile` WRITE;
 /*!40000 ALTER TABLE `userprofile` DISABLE KEYS */;
-INSERT INTO `userprofile` VALUES ('3a8e9fad-c24a-4e20-be0a-edce05e36150','Obere Str. 57ss','Th·ª´a Thi√™n Hu·∫ø','0379349824','5514e74a-66b3-43ed-a394-1cb981eeebcb.jpg','3072e836-7469-454d-9165-e7761f3f2eb7','Huy·ªán A L∆∞·ªõi','X√£ H·ªìng Th∆∞·ª£ng'),('47045f6a-34c4-4dc6-b3a0-fa4453b5da30',NULL,NULL,'0379349826',NULL,'704c1690-d96b-4258-bbea-061ac2261ccd',NULL,NULL),('71fc0684-de2e-4757-a11b-b8b85ed9ba1b',NULL,NULL,NULL,'9df7ccee-b3cb-44fb-b1c2-1aae2ec946a4.png','01efea5a-2668-497b-a756-44e70191fa1b',NULL,NULL),('7e7fc974-755e-4d24-be2a-bba6fd3e5dd4','OIbanoi X','H·ªì Ch√≠ Minh','0982359945','49b0ff3f-b36a-47b4-a0d7-faf641aa99bd.jpg','47fdb832-46bb-495c-8b3d-06bb817e29db','Qu·∫≠n G√≤ V·∫•p','Ph∆∞·ªùng 10');
+INSERT INTO `userprofile` VALUES ('3a8e9fad-c24a-4e20-be0a-edce05e36150','Obere Str. 57ss','Th·ª´a Thi√™n Hu·∫ø','0379349824','49543787-4c6c-437c-b60a-05a07340dd37.jpg','3072e836-7469-454d-9165-e7761f3f2eb7','Huy·ªán A L∆∞·ªõi','X√£ H·ªìng Th∆∞·ª£ng'),('47045f6a-34c4-4dc6-b3a0-fa4453b5da30',NULL,NULL,'0379349826',NULL,'704c1690-d96b-4258-bbea-061ac2261ccd',NULL,NULL),('71fc0684-de2e-4757-a11b-b8b85ed9ba1b',NULL,NULL,NULL,'9df7ccee-b3cb-44fb-b1c2-1aae2ec946a4.png','01efea5a-2668-497b-a756-44e70191fa1b',NULL,NULL),('7e7fc974-755e-4d24-be2a-bba6fd3e5dd4','OIbanoi X','H·ªì Ch√≠ Minh','0982359945','49b0ff3f-b36a-47b4-a0d7-faf641aa99bd.jpg','47fdb832-46bb-495c-8b3d-06bb817e29db','Qu·∫≠n G√≤ V·∫•p','Ph∆∞·ªùng 10');
 /*!40000 ALTER TABLE `userprofile` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1102,9 +1110,9 @@ UNLOCK TABLES;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `AddCategory`(
+CREATE PROCEDURE `AddCategory`(
   IN categoryname VARCHAR(15),
   IN description TEXT,
   IN picture VARCHAR(256),
@@ -1118,8 +1126,8 @@ BEGIN
   END;
 
   START TRANSACTION;
-  IF NOT EXISTS (SELECT * FROM Categories c WHERE c.CategoryName = categoryname) THEN
-    INSERT INTO Categories (CategoryName, Description, Picture)
+  IF NOT EXISTS (SELECT * FROM categories c WHERE c.CategoryName = categoryname) THEN
+    INSERT INTO categories (CategoryName, Description, Picture)
     VALUES (categoryname, description, picture);
     SET result = 1;
   ELSE
@@ -1140,9 +1148,9 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `AddNewCustomer`(IN profileID CHAR(36), IN userID CHAR(36), 
+CREATE PROCEDURE `AddNewCustomer`(IN profileID CHAR(36), IN userID CHAR(36), 
 	IN customerID CHAR(36), IN contactName VARCHAR(30), OUT result BIT)
 BEGIN
     DECLARE EXIT HANDLER FOR SQLEXCEPTION
@@ -1153,10 +1161,10 @@ BEGIN
 
     START TRANSACTION;
     BEGIN
-        INSERT INTO UserProfile (ProfileID, UserID) VALUES (profileID, userID);
+        INSERT INTO userprofile (ProfileID, UserID) VALUES (profileID, userID);
         insert into userverification(id, phoneverification, profileverification, profileid) 
         values(UUID(), 0, 0, profileID);
-        INSERT INTO Customers (CustomerID, ContactName, ProfileID) VALUES (customerID, contactName, profileID);
+        INSERT INTO customers (CustomerID, ContactName, ProfileID) VALUES (customerID, contactName, profileID);
         SET result = 1;
         COMMIT;
     END;
@@ -1174,9 +1182,9 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `AddNewEmployee`(IN profileID CHAR(36), IN userID CHAR(36), 
+CREATE PROCEDURE `AddNewEmployee`(IN profileID CHAR(36), IN userID CHAR(36), 
 	IN employeeID CHAR(36), OUT result BIT)
 BEGIN
     DECLARE EXIT HANDLER FOR SQLEXCEPTION
@@ -1187,8 +1195,8 @@ BEGIN
 
     START TRANSACTION;
     BEGIN
-        INSERT INTO UserProfile (ProfileID, UserID) VALUES (profileID, userID);
-        INSERT INTO Employees (EmployeeID, ProfileID) VALUES (employeeID, profileID);
+        INSERT INTO userProfile (ProfileID, UserID) VALUES (profileID, userID);
+        INSERT INTO employees (EmployeeID, ProfileID) VALUES (employeeID, profileID);
         SET result = 1;
         COMMIT;
     END;
@@ -1206,9 +1214,9 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `AssignUserRole`(IN username VARCHAR(20), IN roleName VARCHAR(20), out result bit)
+CREATE PROCEDURE `AssignUserRole`(IN username VARCHAR(20), IN roleName VARCHAR(20), out result bit)
 BEGIN
 	declare exit handler for sqlexception
     begin
@@ -1216,10 +1224,10 @@ BEGIN
         set result=0;
     end;
 
-    IF NOT EXISTS (SELECT * FROM UserRoles ur WHERE ur.Username = username AND ur.RoleName = roleName) THEN
+    IF NOT EXISTS (SELECT * FROM userroles ur WHERE ur.Username = username AND ur.RoleName = roleName) THEN
         START TRANSACTION;
         BEGIN
-            INSERT INTO UserRole (UserID, RoleID) 
+            INSERT INTO userrole (UserID, RoleID) 
             select u.userid, r.roleid 
             from users u, roles r 
             where u.username=username and r.rolename=rolename;
@@ -1245,9 +1253,9 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `AssignUserRoles`(
+CREATE PROCEDURE `AssignUserRoles`(
   IN username VARCHAR(20),
   IN listRoleID VARCHAR(255),
   OUT result BIT
@@ -1262,7 +1270,7 @@ BEGIN
 
   START TRANSACTION;
 
-  SELECT userID = UserID FROM Users WHERE Username = username;
+  SELECT userID = u.UserID FROM users u WHERE u.Username = username;
 
   DROP TEMPORARY TABLE IF EXISTS ListTable;
   CREATE TEMPORARY TABLE ListTable (RoleID INT);
@@ -1272,9 +1280,9 @@ BEGIN
        WHERE @row < LENGTH(listRoleID) - LENGTH(REPLACE(listRoleID, ',', '')) + 1) num
   CROSS JOIN (SELECT @row) r;
 
-  DELETE FROM UserRole ur WHERE ur.UserID = userID;
+  DELETE FROM userrole ur WHERE ur.UserID = userID;
 
-  INSERT INTO UserRole (UserID, RoleID)
+  INSERT INTO userrole (UserID, RoleID)
   SELECT userID, RoleID FROM ListTable;
 
   COMMIT;
@@ -1295,7 +1303,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `CreateCustomerUser`(
+CREATE PROCEDURE `CreateCustomerUser`(
 	IN userID varchar(36),
     IN customerID varchar(36),
     IN profileID varchar(36),
@@ -1352,9 +1360,9 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `CreateEmployeeUser`(
+CREATE PROCEDURE `CreateEmployeeUser`(
 	IN userID varchar(36),
     IN employeeID varchar(36),
     IN profileID varchar(36),
@@ -1383,8 +1391,8 @@ begin
         from roles r
         where r.rolename='EMPLOYEE';
 
-        INSERT INTO UserProfile (ProfileID, UserID) VALUES (profileID, userID);
-        INSERT INTO Employees (EmployeeID, ProfileID) VALUES (employeeID, profileID);
+        INSERT INTO userprofile (ProfileID, UserID) VALUES (profileID, userID);
+        INSERT INTO employees (EmployeeID, ProfileID) VALUES (employeeID, profileID);
         SET result = 1;
     end;	
 end ;;
@@ -1401,9 +1409,9 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `CreateNotification`(
+CREATE PROCEDURE `CreateNotification`(
   IN notificationID CHAR(36),
   IN title VARCHAR(100),
   IN message TEXT,
@@ -1425,15 +1433,15 @@ BEGIN
 		set result=0;
 	  end;
   
-  SELECT t.TopicID INTO topicID FROM Topics t WHERE t.TopicName = topicName;
+  SELECT t.TopicID INTO topicID FROM topics t WHERE t.TopicName = topicName;
 
   IF topicID IS NOT NULL THEN
     START TRANSACTION;
     BEGIN
-      INSERT INTO Notifications (NotificationID, Title, Message, SenderID, ReceiverID, TopicID, RepliedTo, Status, Time, Picture)
+      INSERT INTO notifications (NotificationID, Title, Message, SenderID, ReceiverID, TopicID, RepliedTo, Status, Time, Picture)
       VALUES (notificationID, title, message, senderID, receiverID, topicID, repliedTo, status, time, picture);
 
-      INSERT INTO NotificationUser (NotificationID, UserID, IsRead)
+      INSERT INTO notificationuser (NotificationID, UserID, IsRead)
       VALUES (notificationID, receiverID, isRead);
 
       SET result = 1;
@@ -1456,9 +1464,9 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `CreateOrder`(
+CREATE PROCEDURE `CreateOrder`(
   IN orderID VARCHAR(36),
   IN orderDate DATETIME,
   IN requiredDate DATETIME,
@@ -1485,7 +1493,7 @@ BEGIN
 
   START TRANSACTION;
   BEGIN
-    INSERT INTO Orders (OrderID, OrderDate, RequiredDate, ShippedDate, Freight, ShipName, ShipAddress, ShipCity, ShipDistrict, ShipWard, Phone, Status, CustomerID, EmployeeID, ShipVia) 
+    INSERT INTO orders (OrderID, OrderDate, RequiredDate, ShippedDate, Freight, ShipName, ShipAddress, ShipCity, ShipDistrict, ShipWard, Phone, Status, CustomerID, EmployeeID, ShipVia) 
     VALUES ( orderID, orderDate, requiredDate, shippedDate, freight, shipName, shipAddress, shipCity, shipDistrict, shipWard, phone, status, customerID, employeeID, shipperID);
 	set result =1;
     commit;
@@ -1504,9 +1512,9 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `CreateOrderDetail`(
+CREATE PROCEDURE `CreateOrderDetail`(
   IN productID INT,
   IN orderID VARCHAR(36),
   IN unitPrice DECIMAL(10, 2),
@@ -1521,7 +1529,7 @@ BEGIN
     end;
   START TRANSACTION;
   BEGIN
-    INSERT INTO OrderDetails (OrderID, ProductID, UnitPrice, Quantity) 
+    INSERT INTO orderdetails (OrderID, ProductID, UnitPrice, Quantity) 
     VALUES (orderID, productID, unitPrice, quantity);
 	   set result =1;
 	   commit;
@@ -1542,7 +1550,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `CreateOrderDetailDiscount`(
+CREATE PROCEDURE `CreateOrderDetailDiscount`(
     IN orderID VARCHAR(36),
     IN productID INT,
     IN discountID VARCHAR(36),
@@ -1578,7 +1586,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`%` PROCEDURE `CreateOTP`(
+CREATE PROCEDURE `CreateOTP`(
 	IN id varchar(36),
     IN value varchar(6),
     IN userId nchar(36),
@@ -1615,7 +1623,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`%` PROCEDURE `CreateProduct`(
+CREATE PROCEDURE `CreateProduct`(
 	IN productName VARCHAR(40),
 	IN quantityPerUnit VARCHAR(20),
 	IN unitPrice DECIMAL(10, 2),
@@ -1666,7 +1674,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`%` PROCEDURE `CreateProductSize`(
+CREATE PROCEDURE `CreateProductSize`(
 	IN productsizeid varchar(36),
     IN productid int,
     IN height int,
@@ -1703,7 +1711,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `CreateUserVerification`(
+CREATE PROCEDURE `CreateUserVerification`(
 	IN verificationID varchar(36),
     IN phoneVerification bit,
     IN profileVerification bit,
@@ -1739,7 +1747,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `DeleteCustomer`(
+CREATE PROCEDURE `DeleteCustomer`(
 	IN username varchar(20)
 )
 BEGIN
@@ -1778,25 +1786,25 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `DeleteUserRole`(IN username VARCHAR(20), IN roleName VARCHAR(20), out result bit)
+CREATE PROCEDURE `DeleteUserRole`(IN username VARCHAR(20), IN roleName VARCHAR(20), out result bit)
 BEGIN
 	declare exit handler for sqlexception
     begin
 		rollback;
         set result=0;
 	end;
-    IF ((SELECT COUNT(*) FROM UserRoles ur WHERE ur.Username = username AND ur.RoleName = roleName) > 0) THEN
+    IF ((SELECT COUNT(*) FROM userroles ur WHERE ur.Username = username AND ur.RoleName = roleName) > 0) THEN
         START TRANSACTION;
         BEGIN
             DECLARE roleID INT;
             DECLARE userID char(36);
-            SET roleID = (SELECT r.RoleID FROM Roles r WHERE r.RoleName = roleName);
-            SET userID = (SELECT u.UserID FROM Users u WHERE u.Username = username);
+            SET roleID = (SELECT r.RoleID FROM roles r WHERE r.RoleName = roleName);
+            SET userID = (SELECT u.UserID FROM users u WHERE u.Username = username);
 
             DELETE ur 
-            FROM UserRole ur
+            FROM userrole ur
             WHERE ur.userid = userid AND ur.roleid=roleid;
 			
             set result=1;
@@ -1822,7 +1830,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`%` PROCEDURE `GetCreditCard`(
+CREATE PROCEDURE `GetCreditCard`(
 	IN userId nchar(36),
     IN privatekey varchar(100)
 )
@@ -1850,7 +1858,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `GetUserRoles`(
+CREATE PROCEDURE `GetUserRoles`(
 	IN username varchar(20)
 )
 begin
@@ -1871,9 +1879,9 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `InsertDiscount`(
+CREATE PROCEDURE `InsertDiscount`(
   IN discountID VARCHAR(36),
   IN discountPercent INT,
   IN discountCode TEXT,
@@ -1896,20 +1904,20 @@ BEGIN
   IF (SELECT COUNT(1) FROM discounttypes dt WHERE dt.DiscountType = discountType) > 0 THEN
     START TRANSACTION;
     BEGIN
-      SET discountTypeID= (SELECT dt.DiscountTypeID FROM DiscountTypes dt WHERE dt.DiscountType = discountType);
-      SET percentageBasedID = (SELECT dt.DiscountTypeID FROM DiscountTypes dt WHERE dt.DiscountType = 'Percentage-based');
+      SET discountTypeID= (SELECT dt.DiscountTypeID FROM discounttypes dt WHERE dt.DiscountType = discountType);
+      SET percentageBasedID = (SELECT dt.DiscountTypeID FROM discounttypes dt WHERE dt.DiscountType = 'Percentage-based');
 
-      IF (SELECT COUNT(1) FROM DiscountDetails d JOIN ProductsDiscounts pd ON d.DiscountID = pd.DiscountID
+      IF (SELECT COUNT(1) FROM discountdetails d JOIN productsdiscounts pd ON d.DiscountID = pd.DiscountID
           WHERE d.DiscountType = 'Percentage-based' AND discountType = d.DiscountType AND active = 1 AND pd.ProductID = productID) > 0
           AND active = 1 THEN
-        UPDATE Discounts d JOIN ProductsDiscounts pd ON d.DiscountID = pd.DiscountID
+        UPDATE discounts d JOIN productsdiscounts pd ON d.DiscountID = pd.DiscountID
         SET d.Active = 0
         WHERE d.DiscountTypeID = percentageBasedID AND pd.ProductID = productID AND d.Active = 1;
       END IF;
 
-      INSERT INTO Discounts (DiscountID, DiscountPercent, StartDate, EndDate, DiscountCode, Active, DiscountTypeID)
+      INSERT INTO discounts (DiscountID, DiscountPercent, StartDate, EndDate, DiscountCode, Active, DiscountTypeID)
       VALUES (discountID, discountPercent, startDate, endDate, discountCode, active, discountTypeID);
-      INSERT INTO ProductsDiscounts (DiscountID, ProductID) VALUES (discountID, productID);
+      INSERT INTO productsdiscounts (DiscountID, ProductID) VALUES (discountID, productID);
 
       SET result = 1;
       COMMIT;
@@ -1932,9 +1940,9 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `InsertOrder`(
+CREATE PROCEDURE `InsertOrder`(
   IN orderID VARCHAR(36),
   IN orderDate DATETIME,
   IN requiredDate DATETIME,
@@ -1956,7 +1964,7 @@ BEGIN
 
   START TRANSACTION;
   BEGIN
-    INSERT INTO Orders (
+    INSERT INTO orders (
       OrderID,
       OrderDate,
       RequiredDate,
@@ -2007,9 +2015,9 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `InsertOrderDetail`(
+CREATE PROCEDURE `InsertOrderDetail`(
   IN productID INT,
   IN orderID VARCHAR(36),
   IN unitPrice DECIMAL(10, 2),
@@ -2022,7 +2030,7 @@ BEGIN
 
   START TRANSACTION;
   BEGIN
-    INSERT INTO OrderDetails (
+    INSERT INTO orderdetails (
       OrderID,
       ProductID,
       UnitPrice,
@@ -2057,7 +2065,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `InsertOrderDetailDiscount`(
+CREATE PROCEDURE `InsertOrderDetailDiscount`(
     IN orderID VARCHAR(36),
     IN productID INT,
     IN discountID VARCHAR(36),
@@ -2094,7 +2102,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `InsertProduct`(
+CREATE PROCEDURE `InsertProduct`(
   IN productName VARCHAR(40),
   IN quantityPerUnit VARCHAR(20),
   IN unitPrice DECIMAL(10, 2),
@@ -2141,7 +2149,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SaveFullPayment`(
+CREATE PROCEDURE `SaveFullPayment`(
 	IN paymentID varchar(36),
     IN paymentDate datetime,
     IN amount decimal(10, 2),
@@ -2185,7 +2193,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SavePayment`(
+CREATE PROCEDURE `SavePayment`(
 	IN paymentID varchar(36),
     IN paymentDate datetime,
     IN amount decimal(10, 2),
@@ -2228,7 +2236,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SaveVerificationtToken`(
+CREATE PROCEDURE `SaveVerificationtToken`(
 	IN id varchar(36),
     IN token varchar(1000),
     IN username varchar(20),
@@ -2262,12 +2270,12 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `TenMostExpensiveProducts`()
+CREATE PROCEDURE `TenMostExpensiveProducts`()
 BEGIN
   SELECT p.ProductName AS TenMostExpensiveProducts, p.UnitPrice
-  FROM Products p
+  FROM products p
   ORDER BY p.UnitPrice DESC
   LIMIT 10;
 END ;;
@@ -2286,7 +2294,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `UpdateAdminCustomerInfo`(
+CREATE PROCEDURE `UpdateAdminCustomerInfo`(
 	IN customerID CHAR(36), 
 	IN contactName varchar(30),
     IN address VARCHAR(200), 
@@ -2339,9 +2347,9 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `UpdateAdminEmployeeInfo`(
+CREATE PROCEDURE `UpdateAdminEmployeeInfo`(
 	IN employeeID CHAR(36), 
     IN hireDate DATE,
 	IN birthDate DATE, 
@@ -2377,7 +2385,7 @@ BEGIN
         SET u.Address = address, u.City = city, u.Phone = phone, u.Picture = picture, u.District=district, u.Ward=ward
         WHERE e.EmployeeID = employeeID;
 
-        UPDATE Employees e
+        UPDATE employees e
         SET e.HireDate = hireDate,
             e.Title = title,
             e.Notes = notes,
@@ -2402,7 +2410,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`%` PROCEDURE `UpdateCreditCard`(
+CREATE PROCEDURE `UpdateCreditCard`(
 	IN userId nchar(36),
     IN creditName varchar(20),
     IN creditNumber varchar(20),
@@ -2445,9 +2453,9 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `UpdateCustomerInfo`(IN customerID CHAR(36), 
+CREATE PROCEDURE `UpdateCustomerInfo`(IN customerID CHAR(36), 
 	IN contactName VARCHAR(30), IN address VARCHAR(200), IN city VARCHAR(50),
     IN district varchar(50), IN ward varchar(50),
 	IN phone VARCHAR(24), IN picture VARCHAR(256), OUT result BIT)
@@ -2460,12 +2468,12 @@ BEGIN
 
     START TRANSACTION;
     BEGIN
-        UPDATE UserProfile u
-        JOIN Customers c ON u.ProfileID = c.ProfileID
+        UPDATE userprofile u
+        JOIN customers c ON u.ProfileID = c.ProfileID
         SET u.Address = address, u.City = city, u.Phone = phone, u.Picture = picture, u.District=district, u.Ward=ward
         WHERE c.CustomerID = customerID;
 
-        UPDATE Customers c
+        UPDATE customers c
         SET c.ContactName = contactName
         WHERE c.CustomerID = customerID;
         SET result = 1;
@@ -2485,9 +2493,9 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `UpdateDiscount`(
+CREATE PROCEDURE `UpdateDiscount`(
   IN discountID VARCHAR(36),
   IN discountPercent INT,
   IN discountCode VARCHAR(255),
@@ -2509,37 +2517,37 @@ BEGIN
 
   START TRANSACTION;
   BEGIN
-    IF (SELECT COUNT(1) FROM DiscountTypes dt WHERE dt.DiscountType = discountType) > 0 THEN
+    IF (SELECT COUNT(1) FROM discounttypes dt WHERE dt.DiscountType = discountType) > 0 THEN
        SELECT dt.DiscountTypeID INTO discountTypeID
-      FROM DiscountTypes dt
+      FROM discounttypes dt
       WHERE dt.DiscountType = discountType;
 
       SELECT pd.ProductID INTO productID
-      FROM ProductsDiscounts pd
-      JOIN Discounts d ON pd.DiscountID = d.DiscountID
+      FROM productsdiscounts pd
+      JOIN discounts d ON pd.DiscountID = d.DiscountID
       WHERE d.DiscountID = discountID;
 
       SELECT dt.DiscountTypeID INTO percentageBasedID
-      FROM DiscountTypes dt
+      FROM discounttypes dt
       WHERE dt.DiscountType = 'Percentage-based';
 
       IF ((SELECT COUNT(1)
-           FROM DiscountDetails d
-           JOIN ProductsDiscounts pd ON d.DiscountID = pd.DiscountID
+           FROM discountdetails d
+           JOIN productsdiscounts pd ON d.DiscountID = pd.DiscountID
            WHERE d.DiscountType = 'Percentage-based'
              AND discountType = d.DiscountType
              AND pd.ProductID = productID
              AND d.Active = 1) > 0
           AND active = 1) THEN
-        UPDATE Discounts d
-        JOIN ProductsDiscounts pd ON d.DiscountID = pd.DiscountID
+        UPDATE discounts d
+        JOIN productsdiscounts pd ON d.DiscountID = pd.DiscountID
         SET d.Active = 0
         WHERE d.DiscountTypeID = percentageBasedID
           AND pd.ProductID = productID
           AND d.Active = 1;
       END IF;
 
-      UPDATE Discounts d
+      UPDATE discounts d
       SET d.DiscountPercent = discountPercent,
           d.StartDate = startDate,
           d.EndDate = endDate,
@@ -2568,9 +2576,9 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `UpdateDiscountStatus`(
+CREATE PROCEDURE `UpdateDiscountStatus`(
   IN discountID VARCHAR(36),
   IN active BIT,
   OUT result BIT
@@ -2587,25 +2595,25 @@ BEGIN
   START TRANSACTION;
   BEGIN
     SELECT d.DiscountTypeID INTO discountTypeID
-    FROM Discounts d
+    FROM discounts d
     WHERE d.DiscountID = discountID;
 
-    SELECT dt.DiscountTypeID INTO percentageBasedID
-    FROM DiscountTypes dt
+    SELECT dt.discounttypeID INTO percentageBasedID
+    FROM discounttypes dt
     WHERE dt.DiscountType = 'Percentage-based';
 
     IF (SELECT COUNT(1)
-        FROM Discounts d
-        JOIN DiscountTypes dt ON d.DiscountTypeID = dt.DiscountTypeID
+        FROM discounts d
+        JOIN discounttypes dt ON d.DiscountTypeID = dt.DiscountTypeID
         WHERE dt.DiscountType = 'Percentage-based'
           AND discountTypeID = dt.DiscountTypeID
           AND Active = 1) > 0 THEN
-      UPDATE Discounts d
+      UPDATE discounts d
       SET d.Active = 0
       WHERE d.DiscountTypeID = percentageBasedID;
     END IF;
 
-    UPDATE Discounts d
+    UPDATE discounts d
     SET d.Active = active
     WHERE d.DiscountID = discountID;
 
@@ -2628,7 +2636,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `UpdateEmailVerification`(
+CREATE PROCEDURE `UpdateEmailVerification`(
 	IN username varchar(20),
     IN status BIT,
     out result BIT
@@ -2661,9 +2669,9 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `UpdateEmployeeInfo`(IN employeeID CHAR(36), 
+CREATE PROCEDURE `UpdateEmployeeInfo`(IN employeeID CHAR(36), 
 	IN birthDate DATE, IN address VARCHAR(200), IN city VARCHAR(50), IN district varchar(50),
 	IN ward varchar(50), IN phone VARCHAR(24), IN picture VARCHAR(256), OUT result BIT)
 BEGIN
@@ -2675,12 +2683,12 @@ BEGIN
 
     START TRANSACTION;
     BEGIN
-        UPDATE UserProfile u
-        JOIN Employees e ON u.ProfileID = e.ProfileID
+        UPDATE userprofile u
+        JOIN employees e ON u.ProfileID = e.ProfileID
         SET u.Address = address, u.City = city, u.Phone = phone, u.Picture = picture, u.District=district, u.Ward=ward
         WHERE e.EmployeeID = employeeID;
 
-        UPDATE Employees e
+        UPDATE employees e
         SET e.BirthDate = birthDate
         WHERE e.EmployeeID = employeeID;
         SET result = 1;
@@ -2700,9 +2708,9 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `UpdateNotificationReadStatusByNotificationID`(
+CREATE PROCEDURE `UpdateNotificationReadStatusByNotificationID`(
   IN notificationID CHAR(36),
   IN isRead TINYINT(1),
   OUT result TINYINT(1)
@@ -2716,14 +2724,14 @@ BEGIN
 
   START TRANSACTION;
   BEGIN
-    IF NOT EXISTS (SELECT * FROM NotificationUser nu, Notifications n WHERE n.NotificationID = notificationID AND n.ReceiverID = nu.UserID) THEN
-      INSERT INTO NotificationUser (NotificationID, UserID, IsRead)
+    IF NOT EXISTS (SELECT * FROM notificationuser nu, notifications n WHERE n.NotificationID = notificationID AND n.ReceiverID = nu.UserID) THEN
+      INSERT INTO notificationuser (NotificationID, UserID, IsRead)
       SELECT n.NotificationID, n.ReceiverID, n.isRead
-      FROM Notifications n
+      FROM notifications n
       WHERE n.NotificationID = notificationID;
     END IF;
 
-    UPDATE NotificationUser nu
+    UPDATE notificationuser nu
     SET nu.IsRead = isRead
     WHERE nu.NotificationID = notificationID;
 
@@ -2744,9 +2752,9 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `UpdateNotificationReadStatusByNotificationIDAndUserID`(
+CREATE PROCEDURE `UpdateNotificationReadStatusByNotificationIDAndUserID`(
   IN notificationID CHAR(36),
   IN userID CHAR(36),
   IN isRead TINYINT(1),
@@ -2760,12 +2768,12 @@ BEGIN
 	end;
   START TRANSACTION;
   BEGIN
-    IF EXISTS (SELECT * FROM NotificationUser nu WHERE nu.NotificationID = notificationID AND nu.UserID = userID) THEN
-      UPDATE NotificationUser nu
+    IF EXISTS (SELECT * FROM notificationuser nu WHERE nu.NotificationID = notificationID AND nu.UserID = userID) THEN
+      UPDATE notificationuser nu
       SET nu.IsRead = isRead
       WHERE nu.NotificationID = notificationID AND nu.UserID = userID;
     ELSE
-      INSERT INTO NotificationUser (NotificationID, UserID, IsRead)
+      INSERT INTO notificationuser (NotificationID, UserID, IsRead)
       VALUES (notificationID, userID, isRead);
     END IF;
 
@@ -2786,9 +2794,9 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `UpdateNotificationReadStatusByUserID`(
+CREATE PROCEDURE `UpdateNotificationReadStatusByUserID`(
 	in userID nchar(36), 
     in isRead bit, 
     out result bit)
@@ -2800,7 +2808,7 @@ begin
 	end;
 	start transaction;
 	begin 
-		update NotificationUser nu set nu.IsRead=isRead where nu.UserID=userID;
+		update notificationuser nu set nu.IsRead=isRead where nu.UserID=userID;
 		set result=1;
 		commit;
 	end;
@@ -2818,9 +2826,9 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `UpdateNotificationsReadByNotificationID`(IN notificationIDs VARCHAR(255), IN isRead BIT, OUT result BIT)
+CREATE PROCEDURE `UpdateNotificationsReadByNotificationID`(IN notificationIDs VARCHAR(255), IN isRead BIT, OUT result BIT)
 BEGIN
    DECLARE tokens INT DEFAULT 0;
 	DECLARE token VARCHAR(100) DEFAULT '';
@@ -2847,7 +2855,7 @@ BEGIN
 		SET tokens = tokens + 1;
 	END IF;
 
-    UPDATE NotificationUser nu
+    UPDATE notificationuser nu
     JOIN ListIds li ON nu.NotificationID = li.NotificationID
     SET nu.IsRead = isRead;
 
@@ -2868,7 +2876,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `UpdateOrderEmployeeID`(
+CREATE PROCEDURE `UpdateOrderEmployeeID`(
 	IN orderID varchar(36),
     IN employeeID varchar(36),
 	OUT result BIT
@@ -2902,7 +2910,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `UpdateOrderStatus`(
+CREATE PROCEDURE `UpdateOrderStatus`(
 	IN orderID varchar(36),
     IN status varchar(10),
 	OUT result BIT
@@ -2936,7 +2944,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `UpdatePayment`(
+CREATE PROCEDURE `UpdatePayment`(
 	IN paymentID varchar(36),
     IN transactionID varchar(255),
     IN status varchar(10),
@@ -2971,7 +2979,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `UpdatePaymentStatus`(
+CREATE PROCEDURE `UpdatePaymentStatus`(
 	IN paymentID varchar(36),
     IN status varchar(10),
     OUT result bit
@@ -3003,9 +3011,9 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `UpdatePaymentStatusByOrderID`(
+CREATE PROCEDURE `UpdatePaymentStatusByOrderID`(
 	IN orderID varchar(36),
     IN status varchar(10),
     OUT result BIT
@@ -3018,7 +3026,7 @@ begin
 	end;
     start transaction;
     begin
-		update Payment p set p.status=status where p.orderid=orderID;
+		update payment p set p.status=status where p.orderid=orderID;
 		set result = 1;
 		commit;
     end;
@@ -3038,7 +3046,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `UpdatePhoneVerification`(
+CREATE PROCEDURE `UpdatePhoneVerification`(
 	IN profileID varchar(36),
     IN phoneVerification bit,
     OUT result bit
@@ -3070,9 +3078,9 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `UpdateProduct`(
+CREATE PROCEDURE `UpdateProduct`(
   IN productID INT,
   IN productName VARCHAR(40),
   IN quantityPerUnit VARCHAR(20),
@@ -3093,7 +3101,7 @@ BEGIN
 
   START TRANSACTION;
   BEGIN
-    UPDATE Products p
+    UPDATE products p
     SET p.ProductName = productName, p.QuantityPerUnit = quantityPerUnit,
         p.UnitPrice = unitPrice, p.UnitsInStock = unitsInStock,
         p.Discontinued = discontinued, p.picture = picture,
@@ -3119,7 +3127,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`%` PROCEDURE `UpdateProductSize`(
+CREATE PROCEDURE `UpdateProductSize`(
 	IN productID int,
     IN height int,
     IN width int,
@@ -3157,9 +3165,9 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `UpdateProductsUnitsInStock`(
+CREATE PROCEDURE `UpdateProductsUnitsInStock`(
   IN productIDs TEXT,
   IN unitsInStocks TEXT,
   OUT result BIT
@@ -3183,7 +3191,7 @@ BEGIN
     INSERT INTO listUnitsInstocks (UnitsInStocks) SELECT DISTINCT SUBSTRING_INDEX(SUBSTRING_INDEX(unitsInStocks, ',', n), ',', -1) AS UnitsInStocks
     FROM (SELECT @curRow := @curRow + 1 AS n FROM (SELECT 1) r, (SELECT @curRow := 0) AS init WHERE @curRow < LENGTH(unitsInStocks) - LENGTH(REPLACE(unitsInStocks, ',', '')) + 1) AS numbers;
 
-    UPDATE Products p
+    UPDATE products p
     JOIN listProductIDs lp ON p.ProductID = lp.ProductID
     JOIN listUnitsInstocks lu ON lp.IndexId = lu.IndexId
     SET p.UnitsInStock = lu.UnitsInStocks;
@@ -3205,9 +3213,9 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `UpdateProductUnitsInStock`(
+CREATE PROCEDURE `UpdateProductUnitsInStock`(
   IN productID INT,
   IN unitsInStock INT,
   OUT result BIT
@@ -3221,7 +3229,7 @@ BEGIN
 
   START TRANSACTION;
   BEGIN
-    UPDATE Products p
+    UPDATE products p
     SET p.UnitsInStock = unitsInStock
     WHERE p.ProductID = productID;
 
@@ -3244,7 +3252,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `UpdateProfileVerification`(
+CREATE PROCEDURE `UpdateProfileVerification`(
 	IN profileID varchar(36),
     IN profileVerification bit,
     OUT result bit
@@ -3278,7 +3286,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `UpdateUserPassword`(IN userID VARCHAR(36), IN password VARCHAR(255), OUT result BIT)
+CREATE PROCEDURE `UpdateUserPassword`(IN userID VARCHAR(36), IN password VARCHAR(255), OUT result BIT)
 BEGIN
 	DECLARE EXIT HANDLER FOR SQLEXCEPTION
     BEGIN
@@ -3310,7 +3318,7 @@ DELIMITER ;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50013 SQL SECURITY DEFINER */
 /*!50001 VIEW `current product list` AS select `p`.`ProductID` AS `ProductID`,`p`.`ProductName` AS `ProductName`,`p`.`UnitPrice` AS `UnitPrice`,`p`.`UnitsInStock` AS `UnitsInStock`,`p`.`Picture` AS `Picture`,`p`.`CategoryName` AS `CategoryName`,`d`.`DiscountID` AS `DiscountID`,ifnull(`d`.`DiscountPercent`,0) AS `DiscountPercent` from (`productinfos` `p` left join (`productsdiscounts` `pd` join `currentvaliddiscountpercentagebased` `d` on((`pd`.`DiscountID` = `d`.`DiscountID`))) on((`p`.`ProductID` = `pd`.`ProductID`))) where (`p`.`Discontinued` = 0) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -3328,7 +3336,7 @@ DELIMITER ;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50013 SQL SECURITY DEFINER */
 /*!50001 VIEW `current valid discounts` AS select `d`.`DiscountID` AS `DiscountID`,`d`.`DiscountPercent` AS `DiscountPercent`,`d`.`DiscountCode` AS `DiscountCode`,`d`.`StartDate` AS `StartDate`,`d`.`EndDate` AS `EndDate`,`d`.`Active` AS `Active`,`dt`.`DiscountType` AS `DiscountType` from (`discounts` `d` join `discounttypes` `dt` on((`d`.`DiscountTypeID` = `dt`.`DiscountTypeID`))) where ((cast(now() as datetime) between `d`.`StartDate` and `d`.`EndDate`) and (`d`.`Active` = 1)) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -3346,7 +3354,7 @@ DELIMITER ;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50013 SQL SECURITY DEFINER */
 /*!50001 VIEW `currentvaliddiscountpercentagebased` AS select `d`.`DiscountID` AS `DiscountID`,`d`.`DiscountPercent` AS `DiscountPercent`,`dt`.`DiscountType` AS `DiscountType`,`d`.`DiscountCode` AS `DiscountCode`,`d`.`StartDate` AS `StartDate`,`d`.`EndDate` AS `EndDate`,`d`.`Active` AS `Active` from (`discounts` `d` join `discounttypes` `dt` on((`d`.`DiscountTypeID` = `dt`.`DiscountTypeID`))) where ((`dt`.`DiscountType` = 'percentage-based') and (`d`.`Active` = 1) and (cast(now() as datetime) between `d`.`StartDate` and `d`.`EndDate`)) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -3364,7 +3372,7 @@ DELIMITER ;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50013 SQL SECURITY DEFINER */
 /*!50001 VIEW `customerdetails` AS select `c`.`CustomerID` AS `CustomerID`,`u`.`UserID` AS `UserID`,`c`.`ContactName` AS `ContactName`,`u`.`Address` AS `Address`,`u`.`Ward` AS `Ward`,`u`.`District` AS `District`,`u`.`City` AS `City`,`u`.`Phone` AS `Phone`,`u`.`Picture` AS `Picture` from (`customers` `c` join `userprofile` `u` on((`c`.`ProfileID` = `u`.`ProfileID`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -3382,7 +3390,7 @@ DELIMITER ;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50013 SQL SECURITY DEFINER */
 /*!50001 VIEW `discountdetails` AS select `d`.`DiscountID` AS `DiscountID`,`d`.`DiscountPercent` AS `DiscountPercent`,`d`.`DiscountCode` AS `DiscountCode`,`d`.`StartDate` AS `StartDate`,`d`.`EndDate` AS `EndDate`,`d`.`Active` AS `Active`,`dt`.`DiscountType` AS `DiscountType`,`dt`.`Description` AS `Description` from (`discounts` `d` join `discounttypes` `dt` on((`d`.`DiscountTypeID` = `dt`.`DiscountTypeID`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -3400,7 +3408,7 @@ DELIMITER ;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50013 SQL SECURITY DEFINER */
 /*!50001 VIEW `employeedetails` AS select `e`.`EmployeeID` AS `EmployeeID`,`u`.`UserID` AS `UserID`,`e`.`BirthDate` AS `BirthDate`,`e`.`HireDate` AS `HireDate`,`u`.`Phone` AS `Phone`,`u`.`Picture` AS `Picture`,`e`.`Title` AS `Title`,`u`.`Address` AS `Address`,`u`.`City` AS `City`,`u`.`District` AS `District`,`u`.`Ward` AS `Ward`,`e`.`Notes` AS `Notes` from (`employees` `e` join `userprofile` `u` on((`e`.`ProfileID` = `u`.`ProfileID`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -3418,7 +3426,7 @@ DELIMITER ;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50013 SQL SECURITY DEFINER */
 /*!50001 VIEW `existed product list` AS select `p`.`ProductID` AS `ProductID`,`p`.`ProductName` AS `ProductName`,`p`.`UnitPrice` AS `UnitPrice`,`p`.`UnitsInStock` AS `UnitsInStock`,`p`.`Picture` AS `Picture`,`p`.`CategoryName` AS `CategoryName`,`d`.`DiscountID` AS `DiscountID`,ifnull(`d`.`DiscountPercent`,0) AS `DiscountPercent`,`p`.`Discontinued` AS `Discontinued` from (`productinfos` `p` left join (`productsdiscounts` `pd` join `currentvaliddiscountpercentagebased` `d` on((`pd`.`DiscountID` = `d`.`DiscountID`))) on((`p`.`ProductID` = `pd`.`ProductID`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -3436,7 +3444,7 @@ DELIMITER ;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50013 SQL SECURITY DEFINER */
 /*!50001 VIEW `invoices` AS select `o`.`ShipName` AS `ShipName`,`o`.`ShipAddress` AS `ShipAddress`,`o`.`ShipCity` AS `ShipCity`,`o`.`ShipDistrict` AS `ShipDistrict`,`o`.`ShipWard` AS `ShipWard`,`o`.`Phone` AS `Phone`,`o`.`CustomerID` AS `CustomerID`,`o`.`EmployeeID` AS `EmployeeID`,`o`.`OrderID` AS `OrderID`,`o`.`OrderDate` AS `OrderDate`,`o`.`RequiredDate` AS `RequiredDate`,`o`.`ShippedDate` AS `ShippedDate`,`o`.`ShipVia` AS `ShipperID`,`ode`.`ProductID` AS `ProductID`,`ode`.`UnitPrice` AS `UnitPrice`,`ode`.`Quantity` AS `Quantity`,`ode`.`ExtendedPrice` AS `ExtendedPrice`,ifnull(`o`.`Freight`,0) AS `Freight`,`o`.`Status` AS `Status`,`odd`.`DiscountID` AS `DiscountID`,ifnull(`odd`.`DiscountPercent`,0) AS `DiscountPercent`,`m`.`methodname` AS `PaymentMethod` from ((((`orders` `o` join `orderdetailsextended` `ode` on((`o`.`OrderID` = `ode`.`OrderID`))) left join `orderdetailsdiscounts` `odd` on(((`odd`.`OrderID` = `ode`.`OrderID`) and (`odd`.`ProductID` = `ode`.`ProductID`)))) join `payments` `p`) join `paymentmethods` `m`) where ((`p`.`orderid` = `o`.`OrderID`) and (`p`.`methodid` = `m`.`methodid`)) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -3454,7 +3462,7 @@ DELIMITER ;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50013 SQL SECURITY DEFINER */
 /*!50001 VIEW `notificationdetails` AS select `n`.`NotificationID` AS `NotificationID`,`n`.`Title` AS `Title`,`n`.`Message` AS `Message`,`n`.`SenderID` AS `SenderID`,`n`.`ReceiverID` AS `ReceiverID`,`t`.`TopicName` AS `Topic`,`n`.`Status` AS `Status`,ifnull(`nu`.`IsRead`,0) AS `IsRead`,`n`.`Time` AS `Time`,`n`.`Picture` AS `Picture`,`n`.`RepliedTo` AS `RepliedTo` from ((`notifications` `n` join `topics` `t` on((`n`.`TopicID` = `t`.`TopicID`))) left join `notificationuser` `nu` on((`nu`.`NotificationID` = `n`.`NotificationID`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -3472,7 +3480,7 @@ DELIMITER ;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50013 SQL SECURITY DEFINER */
 /*!50001 VIEW `orderdetailsdiscountsum` AS select `od`.`OrderID` AS `OrderID`,`od`.`ProductID` AS `ProductID`,count(`odd`.`DiscountID`) AS `NumberOfDiscounts`,ifnull(sum(`odd`.`DiscountPercent`),0) AS `TotalDiscount`,`od`.`UnitPrice` AS `UnitPrice`,`od`.`Quantity` AS `Quantity` from (`orderdetails` `od` left join `orderdetailsdiscounts` `odd` on(((`od`.`OrderID` = `odd`.`OrderID`) and (`od`.`ProductID` = `odd`.`ProductID`)))) group by `od`.`OrderID`,`od`.`ProductID`,`od`.`UnitPrice`,`od`.`Quantity` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -3490,7 +3498,7 @@ DELIMITER ;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50013 SQL SECURITY DEFINER */
 /*!50001 VIEW `orderdetailsextended` AS select `ode`.`OrderID` AS `OrderID`,`ode`.`ProductID` AS `ProductID`,`ode`.`UnitPrice` AS `UnitPrice`,`ode`.`Quantity` AS `Quantity`,`ode`.`TotalDiscount` AS `Discount`,cast(((`ode`.`UnitPrice` * `ode`.`Quantity`) * (1 - (`ode`.`TotalDiscount` / 100))) as decimal(10,2)) AS `ExtendedPrice`,`o`.`Status` AS `Status`,`o`.`Freight` AS `Freight`,`o`.`CustomerID` AS `CustomerID`,`o`.`EmployeeID` AS `EmployeeID` from (`orderdetailsdiscountsum` `ode` join `orders` `o` on((`o`.`OrderID` = `ode`.`OrderID`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -3508,7 +3516,7 @@ DELIMITER ;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50013 SQL SECURITY DEFINER */
 /*!50001 VIEW `productdetails` AS select `p`.`ProductID` AS `ProductID`,`p`.`ProductName` AS `ProductName`,`p`.`CategoryID` AS `CategoryID`,`p`.`QuantityPerUnit` AS `QuantityPerUnit`,`p`.`UnitPrice` AS `UnitPrice`,`p`.`UnitsInStock` AS `UnitsInStock`,`p`.`Discontinued` AS `Discontinued`,`p`.`Picture` AS `Picture`,`p`.`Description` AS `Description`,`p`.`CategoryName` AS `CategoryName`,`d`.`DiscountID` AS `DiscountID`,ifnull(`d`.`DiscountPercent`,0) AS `DiscountPercent`,`d`.`StartDate` AS `StartDate`,`d`.`EndDate` AS `EndDate` from (`productinfos` `p` left join (`productsdiscounts` `pd` join `currentvaliddiscountpercentagebased` `d` on((`pd`.`DiscountID` = `d`.`DiscountID`))) on((`p`.`ProductID` = `pd`.`ProductID`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -3526,7 +3534,7 @@ DELIMITER ;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50013 SQL SECURITY DEFINER */
 /*!50001 VIEW `productinfos` AS select `p`.`ProductID` AS `ProductID`,`p`.`ProductName` AS `ProductName`,`p`.`CategoryID` AS `CategoryID`,`p`.`QuantityPerUnit` AS `QuantityPerUnit`,`p`.`UnitPrice` AS `UnitPrice`,`p`.`UnitsInStock` AS `UnitsInStock`,`p`.`Discontinued` AS `Discontinued`,`p`.`Picture` AS `Picture`,`p`.`Description` AS `Description`,`c`.`CategoryName` AS `CategoryName` from (`products` `p` left join `categories` `c` on((`p`.`CategoryID` = `c`.`CategoryID`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -3544,7 +3552,7 @@ DELIMITER ;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50013 SQL SECURITY DEFINER */
 /*!50001 VIEW `products by category` AS select `c`.`CategoryName` AS `CategoryName`,`p`.`ProductName` AS `ProductName`,`p`.`QuantityPerUnit` AS `QuantityPerUnit`,`p`.`UnitsInStock` AS `UnitsInStock`,`p`.`Discontinued` AS `Discontinued` from (`categories` `c` join `productinfos` `p` on((`c`.`CategoryID` = `p`.`CategoryID`))) where (`p`.`Discontinued` <> 1) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -3562,7 +3570,7 @@ DELIMITER ;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`%` SQL SECURITY DEFINER */
+/*!50013 SQL SECURITY DEFINER */
 /*!50001 VIEW `productsizeinfo` AS select `pi`.`ProductID` AS `ProductID`,`pi`.`ProductName` AS `ProductName`,`pi`.`CategoryID` AS `CategoryID`,`pi`.`QuantityPerUnit` AS `QuantityPerUnit`,`pi`.`UnitPrice` AS `UnitPrice`,`pi`.`UnitsInStock` AS `UnitsInStock`,`pi`.`Discontinued` AS `Discontinued`,`pi`.`Picture` AS `Picture`,`pi`.`Description` AS `Description`,`pi`.`CategoryName` AS `CategoryName`,`s`.`height` AS `Height`,`s`.`width` AS `Width`,`s`.`length` AS `Length`,`s`.`weight` AS `Weight` from (`productinfos` `pi` join `productsize` `s` on((`pi`.`ProductID` = `s`.`productid`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -3580,7 +3588,7 @@ DELIMITER ;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50013 SQL SECURITY DEFINER */
 /*!50001 VIEW `userdetails` AS select `ur`.`UserID` AS `UserID`,`ur`.`Username` AS `Username`,`ur`.`Email` AS `Email`,`ur`.`RoleID` AS `RoleID`,`ur`.`Rolename` AS `Rolename`,`u`.`FirstName` AS `FirstName`,`u`.`LastName` AS `LastName`,`p`.`Picture` AS `Picture`,`u`.`EmailVerified` AS `EmailVerified`,`u`.`Enabled` AS `Enabled` from ((`userroles` `ur` join `users` `u`) join `userprofile` `p`) where ((`ur`.`UserID` = `u`.`UserID`) and (`u`.`UserID` = `p`.`UserID`)) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -3598,11 +3606,12 @@ DELIMITER ;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50013 SQL SECURITY DEFINER */
 /*!50001 VIEW `userroles` AS select `u`.`UserID` AS `UserID`,`u`.`Username` AS `Username`,`u`.`Email` AS `Email`,`r`.`RoleID` AS `RoleID`,`r`.`Rolename` AS `Rolename` from ((`users` `u` left join `userrole` `ur` on((`u`.`UserID` = `ur`.`UserID`))) join `roles` `r` on((`ur`.`RoleID` = `r`.`RoleID`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
+SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -3613,4 +3622,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-10-14 11:05:46
+-- Dump completed on 2024-10-15 21:10:01

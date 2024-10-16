@@ -66,10 +66,11 @@ public class WebSecurityConfig {
             
         }));
         // csrf
-        var delegate = new XorCsrfTokenRequestAttributeHandler();
-        http.csrf(csrf-> csrf.ignoringRequestMatchers("/logout", "/chat/**", "/register", "/forgot", "/reset")
-            .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-            .csrfTokenRequestHandler(delegate::handle));
+        http.csrf(csrf -> csrf.disable());
+        // var delegate = new XorCsrfTokenRequestAttributeHandler();
+        // http.csrf(csrf-> csrf.ignoringRequestMatchers("/logout", "/chat/**", "/register", "/forgot", "/reset")
+        //     .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+        //     .csrfTokenRequestHandler(delegate::handle));
         // request
         http.authorizeHttpRequests(request -> request
             .requestMatchers("/account/admin/**").hasRole("ADMIN")

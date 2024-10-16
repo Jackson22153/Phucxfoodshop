@@ -255,7 +255,7 @@ export default function OrderComponent(){
             }
         } catch (error) {
             setAlert({
-                message: "You need to set your delivery information!",
+                message: `${error.response.data.error}`,
                 type: ALERT_TYPE.DANGER,
                 isShowed: true
             }) 
