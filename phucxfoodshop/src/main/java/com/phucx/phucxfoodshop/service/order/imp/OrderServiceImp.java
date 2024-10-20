@@ -1,5 +1,6 @@
 package com.phucx.phucxfoodshop.service.order.imp;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +31,6 @@ import com.phucx.phucxfoodshop.model.OrderDetails;
 import com.phucx.phucxfoodshop.model.OrderDetailExtended;
 import com.phucx.phucxfoodshop.model.ProductDiscountsDTO;
 import com.phucx.phucxfoodshop.model.ResponseFormat;
-import com.phucx.phucxfoodshop.repository.InvoiceRepository;
 import com.phucx.phucxfoodshop.repository.OrderDetailDiscountRepository;
 import com.phucx.phucxfoodshop.repository.OrderDetailExtendedRepository;
 import com.phucx.phucxfoodshop.repository.OrderDetailRepository;
@@ -39,7 +39,12 @@ import com.phucx.phucxfoodshop.service.order.ConvertOrderService;
 import com.phucx.phucxfoodshop.service.order.OrderService;
 import com.phucx.phucxfoodshop.service.product.ProductService;
 import com.phucx.phucxfoodshop.utils.BigDecimalUtils;
+import com.phucx.phucxfoodshop.utils.LocalDateTimeConverterUtils;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.ParameterMode;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.StoredProcedureQuery;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -56,9 +61,9 @@ public class OrderServiceImp implements OrderService{
     @Autowired
     private ProductService productService;
     @Autowired
-    private InvoiceRepository invoiceRepository;
-    @Autowired
     private ConvertOrderService convertOrderService;
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
     public Boolean updateOrderStatus(String orderID, OrderStatus status) throws NotFoundException {
@@ -244,12 +249,57 @@ public class OrderServiceImp implements OrderService{
     @Override
     public InvoiceDetails getInvoiceByCustomerID(String customerID, String orderID) throws JsonProcessingException, NotFoundException, ShipperNotFoundException, EmployeeNotFoundException {
         log.info("getInvoiceByCustomerID(customerID={}, orderID={})", customerID, orderID);
-        List<Invoice> invoices = invoiceRepository.findByOrderIDAndCustomerID(orderID, customerID);
+        List<Invoice> invoices = this.getCustomerInvoices(orderID, customerID);
         log.info("Invoices: {}", invoices);
         if(invoices==null || invoices.isEmpty()) 
             throw new NotFoundException("Invoice " + orderID + " of customer "+ customerID + " does not found");
         InvoiceDetails invoice = convertOrderService.convertInvoiceDetails(invoices);
         return invoice;
+    }
+
+    // get customer invoices
+    private List<Invoice> getCustomerInvoices(String orderID, String customerID){
+        StoredProcedureQuery procedure = entityManager.createStoredProcedureQuery("GetCustomerInvoice")
+            .registerStoredProcedureParameter(1, String.class, ParameterMode.IN)
+            .registerStoredProcedureParameter(2, String.class, ParameterMode.IN)
+            .setParameter(1, orderID)
+            .setParameter(2, customerID);
+        List<Object[]> results = procedure.getResultList();
+        return results.stream().map(result ->{
+
+            LocalDateTime orderDate = result[9]!=null?
+                LocalDateTimeConverterUtils.convertToLocalDateTime(result[9]):null;
+            LocalDateTime requiredDate = result[10]!=null?
+                LocalDateTimeConverterUtils.convertToLocalDateTime(result[10]):null;
+            LocalDateTime shippedDate = result[11]!=null?
+                LocalDateTimeConverterUtils.convertToLocalDateTime(result[11]):null;
+
+            Invoice invoice = new Invoice();
+            invoice.setShipName(result[0].toString());
+            invoice.setShipAddress(result[1].toString());
+            invoice.setShipCity(result[2].toString());
+            invoice.setShipDistrict(result[3].toString());
+            invoice.setShipWard(result[4].toString());
+            invoice.setPhone(result[5].toString());
+            invoice.setCustomerID(result[6].toString());
+            invoice.setEmployeeID(result[7]!=null?result[7].toString():null);
+            invoice.setOrderID(result[8]!=null?result[8].toString():null);
+            invoice.setOrderDate(orderDate);
+            invoice.setRequiredDate(requiredDate);
+            invoice.setShippedDate(shippedDate);
+            invoice.setShipperID((Integer) result[12]);
+            invoice.setProductID((Integer) result[13]);
+            invoice.setUnitPrice((BigDecimal) result[14]);
+            invoice.setQuantity(((Short) result[15]).intValue());
+            invoice.setExtendedPrice((BigDecimal)result[16]);
+            invoice.setFreight((BigDecimal)result[17]);
+            invoice.setStatus(OrderStatus.valueOf(result[18].toString()));
+            invoice.setDiscountID(result[19]!=null?result[19].toString():null);
+            invoice.setDiscountPercent(((Long)result[20]).intValue());
+            invoice.setPaymentMethod(result[21].toString());
+
+            return invoice;
+        }).collect(Collectors.toList());
     }
 
     @Override

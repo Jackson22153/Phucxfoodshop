@@ -9,6 +9,7 @@ import { ModalContextType } from "../../../../../model/WebType";
 import modalContext from "../../../../contexts/ModalContext";
 import ScrollToTop from "../../../../shared/functions/scroll-to-top/ScrollToTop";
 import { EMPLOYEE_ORDER } from "../../../../../constant/FoodShoppingURL";
+import { ceilRound } from "../../../../../service/Convert";
 
 export default function EmployeeConfirmedOrderComponent(){
     const { orderId } = useParams();
@@ -167,7 +168,7 @@ export default function EmployeeConfirmedOrderComponent(){
                                 Today's Total
                             </div>
                             <div className="ml-auto h5 font-weight-bold">
-                                ${orderInfo.totalPrice + orderInfo.freight}
+                                ${ceilRound(orderInfo.totalPrice + orderInfo.freight)}
                             </div>
                         </div>
                         <div className="row border rounded p-1 my-3 d-flex">
@@ -200,7 +201,7 @@ export default function EmployeeConfirmedOrderComponent(){
                             <div>{orderInfo.orderDate}</div>
                             <div>Status: <b>{orderInfo.status}</b></div>
                             <div>
-                                Total: <b> ${orderInfo.totalPrice + orderInfo.freight}</b>
+                                Total: <b> ${ceilRound(orderInfo.totalPrice + orderInfo.freight)}</b>
                             </div>
                         </div>
                         <div className="d-flex justify-content-end">

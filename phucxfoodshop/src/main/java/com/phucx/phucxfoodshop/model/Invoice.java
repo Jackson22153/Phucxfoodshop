@@ -6,12 +6,18 @@ import java.time.LocalDateTime;
 import org.springframework.data.annotation.Immutable;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.phucx.phucxfoodshop.compositeKey.OrderDetailDiscountID;
 import com.phucx.phucxfoodshop.constant.OrderStatus;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
+import jakarta.persistence.IdClass;
+import jakarta.persistence.NamedStoredProcedureQueries;
+import jakarta.persistence.NamedStoredProcedureQuery;
+import jakarta.persistence.ParameterMode;
+import jakarta.persistence.StoredProcedureParameter;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,6 +30,14 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "invoices")
+@IdClass(OrderDetailDiscountID.class)
+@NamedStoredProcedureQueries({
+    @NamedStoredProcedureQuery(name = "Invoice.GetCustomerInvoice", procedureName = "GetCustomerInvoice",
+        parameters = {
+            @StoredProcedureParameter(name="orderId", type = String.class, mode = ParameterMode.IN),
+            @StoredProcedureParameter(name="customerId", type = String.class, mode = ParameterMode.IN),
+        })
+})
 public class Invoice {
     @Id
     private String orderID;
@@ -32,11 +46,11 @@ public class Invoice {
     private OrderStatus status;
     private BigDecimal extendedPrice;
 
-    // @Id
+    @Id
     private String discountID;
     private Integer discountPercent;
 
-    // @Id
+    @Id
     private Integer productID;
     private BigDecimal unitPrice;
     private Integer quantity;

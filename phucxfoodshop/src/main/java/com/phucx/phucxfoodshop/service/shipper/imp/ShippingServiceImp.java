@@ -242,9 +242,7 @@ public class ShippingServiceImp implements ShippingService{
         List<Map<String, Object>> services = shippingServices.stream()
             .map(service -> (Map<String, Object>) service)
             .collect(Collectors.toList());
-        Double check = Double.valueOf(totalWeight)/1000;
-        Integer serviceID = check<20?(Integer)services.get(0).get("service_id"):
-            (Integer)services.get(1).get("service_id");
+        Integer serviceID = (Integer)services.get(0).get("service_id");
         // get shipping cost
         ShippingInfo shippingInfo = new ShippingInfoBuilder()
             .withServiceId(serviceID)

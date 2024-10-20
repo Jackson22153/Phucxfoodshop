@@ -202,7 +202,7 @@ export default function EmployeePendingOrderComponent(){
                             <div>{orderInfo.orderDate}</div>
                             <div>Status: <b>{orderInfo.status}</b></div>
                             <div>
-                                Total: <b> ${orderInfo.totalPrice + orderInfo.freight}</b>
+                                Total: <b> ${ceilRound(orderInfo.totalPrice + orderInfo.freight)}</b>
                             </div>
                         </div>
                         <div className="d-flex justify-content-end">

@@ -448,18 +448,20 @@ public class ProductServiceImp implements ProductService{
         return results.stream().map(result -> {
             String pictureUri = productImageService
                 .getPictureUri(result[8].toString());
+            String description = result[9]!=null?result[9].toString():null;
+            String quantityPerunit = result[4]!=null?result[4].toString():null;
 
             SellingProduct product = new SellingProduct();
             product.setQuantity(((BigDecimal) result[0]).intValue());
             product.setProductID((Integer) result[1]);
             product.setProductName(result[2].toString());
             product.setCategoryID((Integer)result[3]);
-            product.setQuantityPerUnit(result[4].toString());
+            product.setQuantityPerUnit(quantityPerunit);
             product.setUnitPrice((BigDecimal)result[5]);
             product.setUnitsInStock(((Short) result[6]).intValue());
             product.setDiscontinued((Boolean)result[7]);
             product.setPicture(pictureUri);
-            product.setDescription(result[9].toString());
+            product.setDescription(description);
             
             return product;
         }).collect(Collectors.toList());
