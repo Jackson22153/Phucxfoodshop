@@ -41,7 +41,7 @@ public class CustomerOrderController {
 
     // ENDPOINT TO PLACE AN ORDER
     @LoggerAspect
-    @Operation(summary = "Place an order", tags = {"tutorials", "post", "customer"})
+    @Operation(summary = "Place an order", tags = {"order", "post", "customer"})
     @PostMapping("/order/place")
     public ResponseEntity<PaymentResponse> placeOrder(
         @RequestBody OrderWithProducts order, 
@@ -54,7 +54,7 @@ public class CustomerOrderController {
     }
 
     @LoggerAspect
-    @Operation(summary = "Receive customer order", tags = {"tutorials", "post", "customer"})
+    @Operation(summary = "Receive customer order", tags = {"order", "post", "customer"})
     @PostMapping("/order/receive")
     public ResponseEntity<Void> receiveOrder(@RequestBody OrderWithProducts order, Authentication authentication) 
         throws JsonProcessingException, NotFoundException, EmployeeNotFoundException, CustomerNotFoundException, PaymentNotFoundException{
@@ -63,7 +63,7 @@ public class CustomerOrderController {
     }
     
     // get INVOICE of customer
-    @Operation(summary = "Get order by id", tags = {"tutorials", "get", "customer"})
+    @Operation(summary = "Get order by id", tags = {"order", "get", "customer"})
     @GetMapping("/orders/{orderID}")
     public ResponseEntity<InvoiceDetails> getOrder(@PathVariable String orderID, Authentication authentication) 
     throws JsonProcessingException, ShipperNotFoundException, EmployeeNotFoundException, NotFoundException{    
@@ -71,7 +71,7 @@ public class CustomerOrderController {
         return ResponseEntity.ok().body(order);
     }
     // GET ALL ORDERS OF CUSTOMER
-    @Operation(summary = "Get orders", tags = {"tutorials", "get", "customer"})
+    @Operation(summary = "Get orders", tags = {"order", "get", "customer"})
     @GetMapping("/orders")
     public ResponseEntity<Page<OrderDetails>> getOrders(
         @RequestParam(name = "page", required = false) Integer pageNumber,

@@ -22,6 +22,7 @@ public interface ProductImageService {
     public String getProductMimeType(String file) throws IOException;
 
     public String getCurrentUrl(HttpServletRequest request);
+    public String getPictureUri(String imageName);
     // set image for product
     public List<Product> setProductsImage(List<Product> products);
     public Product setProductImage(Product product);

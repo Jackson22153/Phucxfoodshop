@@ -31,7 +31,7 @@ public class EmployeeNotificationController {
     @Autowired
     private MarkUserNotificationService markUserNotificationService;
 
-    @Operation(summary = "Mark notification as read", tags = {"employee", "tutorials", "post"},
+    @Operation(summary = "Mark notification as read", tags = {"employee", "notification", "post"},
         description = "Update notification status")
     @PostMapping("/notification/mark")
     public ResponseEntity<ResponseFormat> markAsRead(
@@ -45,7 +45,7 @@ public class EmployeeNotificationController {
     }
 
     // GET NOTIFICATIONS
-    @Operation(summary = "Get notifications", tags = {"employee", "tutorials", "get"})
+    @Operation(summary = "Get notifications", tags = {"employee", "notification", "get"})
     @GetMapping("/notification")
     public ResponseEntity<Page<NotificationDetail>> getNotifications(
         @RequestParam(name = "page", required = false) Integer pageNumber,
@@ -60,7 +60,7 @@ public class EmployeeNotificationController {
         return ResponseEntity.ok().body(notifications);
     }
 
-    @Operation(summary = "Get notification summary", tags = {"employee", "tutorials", "get"},
+    @Operation(summary = "Get notification summary", tags = {"employee", "notification", "get"},
         description = "Get number of unread notifications")
     @GetMapping("/summary")
     public ResponseEntity<NotificationSummary> getNotificationSummary(Authentication authentication){

@@ -127,6 +127,24 @@ export type CartProductInfo = {
     isSelected: boolean
 }
 
+export type SellingProduct = {
+    productID: number,
+    productName: string,
+    quantityPerUnit: number,
+    unitPrice: number,
+    unitsInStock: number,
+    discontinued: boolean,
+    picture: string,
+    description: string,
+
+    discountPercent: number,
+    startDate: string,
+    endDate: string,
+
+    categoryID: number,
+    categoryName: string,
+    quantity:number
+} 
 
 
 export type CartProduct = {
@@ -408,7 +426,8 @@ export type User = {
 }
 export type VerificationInfo = {
     phoneVerified: Boolean,
-    profileVerified: Boolean
+    profileVerified: Boolean,
+    emailVerified: Boolean
 }
 // role
 export type Role = {
@@ -464,7 +483,17 @@ export type Location = {
     wardCode: string,
     cityID: string
 }
-
+// revenue
+export type Revenue = {
+    month: number,
+    total: number
+}
+// payment status percentage
+export type PaymentStatusPercentage = {
+    status: string,
+    percentage: number
+}
+// credit card
 export type CreditCard = {
     name: string,
     number: string,

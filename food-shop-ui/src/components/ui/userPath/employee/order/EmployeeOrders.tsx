@@ -96,7 +96,6 @@ export default function EmployeeOrdersComponent(){
                     number: data.number,
                     totalPages: data.totalPages
                 });
-                console.log(data)
             }
         } catch (error) {
             setErrorModal({

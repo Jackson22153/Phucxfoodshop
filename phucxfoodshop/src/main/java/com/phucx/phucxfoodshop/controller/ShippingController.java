@@ -33,7 +33,7 @@ public class ShippingController {
     private ShippingService shippingService;
 
     @GetMapping("/cost")
-    @Operation(summary = "Estimate shipping cost", tags = {"customer", "private", "customer"})
+    @Operation(summary = "Estimate shipping cost", tags = {"customer", "shipping"})
     public ResponseEntity<ShippingResponse> shippingCost(
         @RequestParam(name = "wardCode") String wardCode,
         @RequestParam(name = "districtId") Integer districtID,
@@ -48,21 +48,21 @@ public class ShippingController {
     }
 
     @GetMapping("/provinces")
-    @Operation(summary = "Get provinces", tags = {"customer", "private"})
+    @Operation(summary = "Get provinces", tags = {"customer", "shipping"})
     public ResponseEntity<List<Province>> getProvinces() {
         List<Province> result = shippingService.getProvinces();
         return ResponseEntity.ok().body(result);
     }
 
     @GetMapping("/districts")
-    @Operation(summary = "Get district", tags = {"customer", "private"})
+    @Operation(summary = "Get district", tags = {"customer", "shipping"})
     public ResponseEntity<List<District>> getDistrict(@RequestParam(name = "provinceId") Integer provinceId) {
         List<District> result = shippingService.getDistricts(provinceId);
         return ResponseEntity.ok().body(result);
     }
 
     @GetMapping("/wards")
-    @Operation(summary = "Get wards", tags = {"customer", "private"})
+    @Operation(summary = "Get wards", tags = {"customer", "shipping"})
     public ResponseEntity<List<Ward>> getWards(@RequestParam(name = "districtId") Integer districtId) {
         List<Ward> result = shippingService.getWards(districtId);
         return ResponseEntity.ok().body(result);

@@ -193,9 +193,8 @@ public class ConvertOrderServiceImp implements ConvertOrderService{
                 product.getPicture());
             // set price
             orderDetails.get(orderDetails.size()-1).getProducts().add(OrderProduct);
-            orderDetails.get(orderDetails.size()-1).setTotalPrice(
-                orderDetails.get(orderDetails.size()-1).getTotalPrice().add(order.getExtendedPrice()));
-            
+            BigDecimal totalPrice = orderDetails.get(orderDetails.size()-1).getTotalPrice().add(order.getExtendedPrice());
+            orderDetails.get(orderDetails.size()-1).setTotalPrice(BigDecimalUtils.formatter(totalPrice));
         }
         return orderDetails;
     }
@@ -209,15 +208,19 @@ public class ConvertOrderServiceImp implements ConvertOrderService{
         OrderDetailExtended firstElement = orderDetailExtendeds.get(0);
         // get customer
         String customerID = firstElement.getCustomerID();
-        CustomerDetail fetchedCustomer = customerService.getCustomerByID(customerID);
+        CustomerDetail fetchedCustomer = customerService
+            .getCustomerByID(customerID);
         // get products
-        List<Integer> productIds = orderDetailExtendeds.stream().map(OrderDetailExtended::getProductID).collect(Collectors.toList());
-        List<Product> fetchedProducts = productService.getProducts(productIds);
-        
+        List<Integer> productIds = orderDetailExtendeds.stream()
+            .map(OrderDetailExtended::getProductID)
+            .collect(Collectors.toList());
+        List<Product> fetchedProducts = productService
+            .getProducts(productIds);
         // create an orderdetails instance
         OrderDetails order = new OrderDetails();
         order.setOrderID(firstElement.getOrderID());
         order.setStatus(firstElement.getStatus());
+        order.setFreight(firstElement.getFreight());
         // set employee of order
         order.setEmployeeID(firstElement.getEmployeeID());
         // set customer of order
@@ -227,12 +230,16 @@ public class ConvertOrderServiceImp implements ConvertOrderService{
         // set product for order
         for(OrderDetailExtended orderDetailExtended: orderDetailExtendeds){
             Product product = this.findProduct(fetchedProducts, orderDetailExtended.getProductID())
-                .orElseThrow(()-> new NotFoundException("Product " + orderDetailExtended.getProductID() + " does not found"));
+                .orElseThrow(()-> new NotFoundException("Product " + orderDetailExtended.getProductID() 
+                    + " does not found"));
             // add new product to the newest OrderDetail
             OrderProduct orderProduct = new OrderProduct(
-                orderDetailExtended.getProductID(), product.getProductName(), 
-                orderDetailExtended.getUnitPrice(), orderDetailExtended.getQuantity(), 
-                orderDetailExtended.getDiscount(), orderDetailExtended.getExtendedPrice(),
+                orderDetailExtended.getProductID(), 
+                product.getProductName(), 
+                orderDetailExtended.getUnitPrice(), 
+                orderDetailExtended.getQuantity(), 
+                orderDetailExtended.getDiscount(), 
+                orderDetailExtended.getExtendedPrice(),
                 product.getPicture());
             // add products to order
             order.getProducts().add(orderProduct);

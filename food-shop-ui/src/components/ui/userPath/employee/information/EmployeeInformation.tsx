@@ -388,7 +388,7 @@ export default function EmployeeInformationComponent(){
                                     <div className="row gx-3 mb-3">
                                         <div className="col-md-6">
                                             <label className="small mb-1" htmlFor="inputAddress">Address</label>
-                                            {employeeInfo.address.length==0 &&
+                                            {(!employeeInfo.address || !employeeInfo.address.length )&&
                                             <span className="badge bg-danger ms-1">!</span> 
                                             }
                                             <input className="form-control" id="inputAddress" name="address" type="text" placeholder="Enter your Address" value={employeeInfo.address} onChange={onChangeEmployeeInfo} disabled={editable}/>
@@ -466,7 +466,7 @@ export default function EmployeeInformationComponent(){
                                     <div className="row gx-3 mb-3">
                                         <div className="col-md-6">
                                             <label className="small mb-1" htmlFor="inputPhone">Phone number</label>
-                                            {employeeInfo.phone.length==0 &&
+                                            {(!employeeInfo.phone || !employeeInfo.phone.length) &&
                                             <span className="badge bg-danger ms-1">!</span> 
                                             }
                                             <input className="form-control" id="inputPhone" name="phone" type="tel" placeholder="Enter your phone number" value={employeeInfo.phone} onChange={onChangeEmployeeInfo} disabled={editable}/>

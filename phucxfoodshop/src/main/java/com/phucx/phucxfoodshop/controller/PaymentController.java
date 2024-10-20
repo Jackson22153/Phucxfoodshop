@@ -18,6 +18,7 @@ import com.phucx.phucxfoodshop.model.PaymentMethod;
 import com.phucx.phucxfoodshop.model.PaymentResponse;
 import com.phucx.phucxfoodshop.service.payment.PaymentProcessorService;
 import com.phucx.phucxfoodshop.service.paymentMethod.PaymentMethodService;
+import com.phucx.phucxfoodshop.utils.ServerUrlUtils;
 
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpServletRequest;
@@ -33,29 +34,21 @@ public class PaymentController {
     @Autowired
     private PaymentProcessorService paymentProcessorService;
 
-    @Operation(summary = "Pay order", tags = {"private", "post", "customer"})
+    @Operation(summary = "Pay order", tags = {"payment", "post", "customer"})
     @PostMapping("/pay")
     public ResponseEntity<PaymentResponse> payment(@RequestBody PaymentDTO payment, 
         HttpServletRequest request, HttpServletResponse response
     ) throws PayPalRESTException, IOException, NotFoundException{
-        String baseUrl = getBaseUrl(request);
+        String baseUrl = ServerUrlUtils.getBaseUrl(request);
         payment.setBaseUrl(baseUrl);
         PaymentResponse paymentResponse = paymentProcessorService.createPayment(payment);
         return ResponseEntity.ok().body(paymentResponse);
     }
 
-    @Operation(summary = "Get payment methods", tags = {"private", "get"})
+    @Operation(summary = "Get payment methods", tags = {"payment", "get"})
     @GetMapping("/methods")
     public ResponseEntity<List<PaymentMethod>> getPaymentMethods(){
         List<PaymentMethod> methods = paymentMethodService.getPaymmentMethods();
         return ResponseEntity.ok().body(methods);
-    }
-
-    // get base url
-    private String getBaseUrl(HttpServletRequest request){
-        String uri = request.getRequestURI().toString();
-        String url = request.getRequestURL().toString();
-        String baseurl = url.substring(0, url.length()-uri.length());
-        return baseurl;
     }
 }

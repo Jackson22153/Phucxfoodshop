@@ -150,13 +150,13 @@ export default function CustomerComponent(){
                             </ul>
 
                             <ul className='flex-column lists nav nav-pills'>
-                                <li className="list nav-item">
+                                {/* <li className="list nav-item">
                                     <Link to={SETTING_PATH}>
                                         <div className={`nav-link`}>
                                             <span className="link">Setting</span>
                                         </div>
                                     </Link>
-                                </li>
+                                </li> */}
                                 <li className="list nav-item">
                                     <Link to={"/"}>
                                         <div className={`nav-link`}>

@@ -44,7 +44,7 @@ public class ProductController {
     @Autowired
     private ProductImageService productImageService;
 
-    @Operation(summary = "Update product", tags = {"tutorials", "post", "admin"})
+    @Operation(summary = "Update product", tags = {"product", "post", "admin"})
     @PostMapping
     public ResponseEntity<ResponseFormat> updateProductDetail(
         @RequestBody ProductDetail productDetail
@@ -54,7 +54,7 @@ public class ProductController {
         return ResponseEntity.ok().body(data);
     }
 
-    @Operation(summary = "Update product size", tags = {"tutorials", "post", "admin"})
+    @Operation(summary = "Update product size", tags = {"product", "post", "admin"})
     @PostMapping("/size")
     public ResponseEntity<ResponseFormat> updateProductSize(
         @RequestBody ProductSize productSize
@@ -64,7 +64,7 @@ public class ProductController {
         return ResponseEntity.ok().body(data);
     }
 
-    @Operation(summary = "Update product size infos", tags = {"tutorials", "post", "admin"})
+    @Operation(summary = "Update product size infos", tags = {"product", "post", "admin"})
     @PostMapping("/sizes")
     public ResponseEntity<ResponseFormat> getProductSize(
         @RequestBody List<ProductSizeInfo> products
@@ -74,7 +74,7 @@ public class ProductController {
         return ResponseEntity.ok().body(data);
     }
 
-    @Operation(summary = "Add new product", tags = {"tutorials", "put", "admin"})
+    @Operation(summary = "Add new product", tags = {"product", "put", "admin"})
     @PutMapping
     public ResponseEntity<ResponseFormat> insertProductDetail(
         @RequestBody ProductSizeInfo productDetail
@@ -85,7 +85,7 @@ public class ProductController {
         return ResponseEntity.ok().body(data);
     }
 
-    @Operation(summary = "Get all products", tags = {"tutorials", "get", "admin"},
+    @Operation(summary = "Get all products", tags = {"product", "get", "admin"},
         description = "Get all existed products in inventory")
     @GetMapping
     public ResponseEntity<Page<ExistedProduct>> getProducts(
@@ -96,7 +96,7 @@ public class ProductController {
         return ResponseEntity.ok().body(products);
     }
 
-    @Operation(summary = "Get product by id", tags = {"tutorials", "get", "admin"})
+    @Operation(summary = "Get product by id", tags = {"product", "get", "admin"})
     @GetMapping("/{productID}")
     public ResponseEntity<ProductDetails> getProductDetail(
         @PathVariable Integer productID
@@ -106,7 +106,7 @@ public class ProductController {
     } 
 
     // set image
-    @Operation(summary = "Upload product image", tags = {"tutorials", "post", "admin"})
+    @Operation(summary = "Upload product image", tags = {"product", "post", "admin", "upload image"})
     @PostMapping(value = "/image/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<ImageFormat> uploadProductImage(
         @RequestBody MultipartFile file,

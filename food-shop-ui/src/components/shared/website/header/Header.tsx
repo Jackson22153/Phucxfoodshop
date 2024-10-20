@@ -6,11 +6,11 @@ import { convertNameForUrl, nonBreakingSpace } from "../../../../service/Convert
 import Search from "../../functions/search/Search";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { memo, useContext, useEffect, useRef, useState } from "react";
-import { LoginUrl } from "../../../../constant/FoodShoppingApiURL";
 import numberOfCartProductsContext from "../../../contexts/NumberOfCartProductsContext";
 import UserInfoNav from "../../functions/userinfo-nav/UserInfoNav";
 import userInfoContext from "../../../contexts/UserInfoContext";
 import { Link } from "react-router-dom";
+import { ROLE } from "../../../../constant/WebConstant";
  
 interface Props{
     lstCategories: Category[]
@@ -46,6 +46,14 @@ const HeaderComponent = memo(function HeaderComponent(prop: Props){
         if(navbarDropdownRef.current && !navbarDropdownRef.current.contains(event.target as Node)){
             onClickCloseExpandNavBar();
         }
+    }
+
+    // USER ROLES
+    const roleNames = ()=>{
+        if(userInfo.roles){
+            const arr = userInfo.roles.map(role => role.toLowerCase());
+            return arr;
+        }else return []
     }
     
 
@@ -131,18 +139,20 @@ const HeaderComponent = memo(function HeaderComponent(prop: Props){
                                 </form>
                             </div>
                             <div className="col-2">
-                                <div className="my-2 my-lg-0 ml-0 ml-lg-4 mb-3 mb-lg-0 d-flex justify-content-center position-relative d-flex align-items-center">
-                                    <Link to={CART_PATH}>
-                                        <div className="btn btn-light ms-3 cart-icon cart-link">
-                                            <FontAwesomeIcon icon={faCartShopping}/>
-                                            {numberOfCartProducts>0 &&
-                                                <span className="cart-badge badge rounded-pill badge-notification bg-danger">
-                                                    {numberOfCartProducts}
-                                                </span>
-                                            }
-                                        </div>
-                                    </Link>
-                                </div>
+                                {roleNames().includes(ROLE.CUSTOMER.toLowerCase()) &&
+                                    <div className="my-2 my-lg-0 ml-0 ml-lg-4 mb-3 mb-lg-0 d-flex justify-content-center position-relative d-flex align-items-center">
+                                        <Link to={CART_PATH}>
+                                            <div className="btn btn-light ms-3 cart-icon cart-link">
+                                                <FontAwesomeIcon icon={faCartShopping}/>
+                                                {numberOfCartProducts>0 &&
+                                                    <span className="cart-badge badge rounded-pill badge-notification bg-danger">
+                                                        {numberOfCartProducts}
+                                                    </span>
+                                                }
+                                            </div>
+                                        </Link>
+                                    </div>
+                                }
                             </div>
                         </div>
                     </div>

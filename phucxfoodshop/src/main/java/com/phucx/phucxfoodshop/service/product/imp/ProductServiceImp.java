@@ -1,5 +1,6 @@
 package com.phucx.phucxfoodshop.service.product.imp;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -11,6 +12,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.phucx.phucxfoodshop.constant.PaymentConstant;
+import com.phucx.phucxfoodshop.constant.PaymentStatusConstant;
 import com.phucx.phucxfoodshop.constant.ProductStatus;
 import com.phucx.phucxfoodshop.exceptions.EntityExistsException;
 import com.phucx.phucxfoodshop.exceptions.InSufficientInventoryException;
@@ -26,6 +29,7 @@ import com.phucx.phucxfoodshop.model.ProductDiscountsDTO;
 import com.phucx.phucxfoodshop.model.ProductSize;
 import com.phucx.phucxfoodshop.model.ProductStockTableType;
 import com.phucx.phucxfoodshop.model.ResponseFormat;
+import com.phucx.phucxfoodshop.model.SellingProduct;
 import com.phucx.phucxfoodshop.repository.CurrentProductRepository;
 import com.phucx.phucxfoodshop.repository.ExistedProductRepository;
 import com.phucx.phucxfoodshop.repository.ProductDetailRepository;
@@ -37,6 +41,10 @@ import com.phucx.phucxfoodshop.service.product.ProductService;
 import com.phucx.phucxfoodshop.service.product.ProductSizeService;
 import com.phucx.phucxfoodshop.utils.ImageUtils;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.ParameterMode;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.StoredProcedureQuery;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -58,6 +66,8 @@ public class ProductServiceImp implements ProductService{
     private ProductImageService productImageService;
     @Autowired
     private ValidateDiscountService validateDiscountService;
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
     public List<Product> getProducts() {
@@ -419,6 +429,40 @@ public class ProductServiceImp implements ProductService{
         ProductDetail productDetail = this.getProductDetail(productID);
         ProductSize productSize = productSizeService.getProductSize(productID);
         return new ProductDetails(productDetail, productSize);
+    }
+
+    @Override
+    public List<SellingProduct> getTopSellingProducts(Integer year, Integer limit) {
+        log.info("getTopSellingProducts(year={}, limit={})", year, limit);
+        StoredProcedureQuery procedureQuery = entityManager
+            .createStoredProcedureQuery("GetTopSellingProducts")
+            .registerStoredProcedureParameter(1, Integer.class, ParameterMode.IN)
+            .registerStoredProcedureParameter(2, String.class, ParameterMode.IN)
+            .registerStoredProcedureParameter(3, Integer.class, ParameterMode.IN)
+            .setParameter(1, year)
+            .setParameter(2, PaymentStatusConstant.SUCCESSFUL.name().toLowerCase())
+            .setParameter(3, limit);
+        List<Object[]> results = procedureQuery.getResultList();
+
+
+        return results.stream().map(result -> {
+            String pictureUri = productImageService
+                .getPictureUri(result[8].toString());
+
+            SellingProduct product = new SellingProduct();
+            product.setQuantity(((BigDecimal) result[0]).intValue());
+            product.setProductID((Integer) result[1]);
+            product.setProductName(result[2].toString());
+            product.setCategoryID((Integer)result[3]);
+            product.setQuantityPerUnit(result[4].toString());
+            product.setUnitPrice((BigDecimal)result[5]);
+            product.setUnitsInStock(((Short) result[6]).intValue());
+            product.setDiscontinued((Boolean)result[7]);
+            product.setPicture(pictureUri);
+            product.setDescription(result[9].toString());
+            
+            return product;
+        }).collect(Collectors.toList());
     }
 
 }

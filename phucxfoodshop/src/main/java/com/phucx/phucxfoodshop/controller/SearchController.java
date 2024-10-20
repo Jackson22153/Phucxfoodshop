@@ -23,7 +23,7 @@ public class SearchController {
     @Autowired
     private ProductService productService;
 
-    @Operation(summary = "Search products by name", tags = {"tutorials", "get", "public"})
+    @Operation(summary = "Search products by name", tags = {"search", "get", "public"})
     @GetMapping("products")
     public ResponseEntity<Page<CurrentProduct>> searchProductsByName(
         @RequestParam(name = "l") String letters,
@@ -38,7 +38,7 @@ public class SearchController {
         return ResponseEntity.badRequest().build();
     }    
 
-    @Operation(summary = "Get recommended products by category", tags = {"tutorials", "get", "public"})
+    @Operation(summary = "Get recommended products by category", tags = {"search", "get", "public"})
     @GetMapping("recommended/{categoryName}")
     public ResponseEntity<Page<CurrentProduct>> getRecommendedProductByCategory(
         @PathVariable(name = "categoryName") String categoryName,

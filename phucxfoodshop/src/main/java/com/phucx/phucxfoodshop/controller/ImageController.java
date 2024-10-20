@@ -29,7 +29,7 @@ public class ImageController {
     private CustomerImageService customerImageService; 
 
     @Operation(summary = "Get employee image", 
-        tags = {"get", "tutorials", "public"})
+        tags = {"get", "image", "public"})
     @GetMapping("/employee/{imageName}")
     public ResponseEntity<byte[]> getEmployeeImage(@PathVariable String imageName) throws IOException {
         byte[] image = employeeImageService.getEmployeeImage(imageName);
@@ -38,7 +38,7 @@ public class ImageController {
     }
 
     @Operation(summary = "Get customer image", 
-        tags = {"get", "tutorials", "public"})
+        tags = {"get", "image", "public"})
     @GetMapping("/customer/{imageName}")
     public ResponseEntity<byte[]> getCustomerImage(@PathVariable String imageName) throws IOException {
         byte[] image = customerImageService.getCustomerImage(imageName);
@@ -46,7 +46,7 @@ public class ImageController {
         return ResponseEntity.ok().contentType(MediaType.parseMediaType(mimeType)).body(image);
     }
 
-    @Operation(summary = "Get product's image", tags = {"tutorials", "get", "public"})
+    @Operation(summary = "Get product's image", tags = {"image", "get", "public"})
     @GetMapping("/product/{imageName}")
     public ResponseEntity<byte[]> getProductImage(@PathVariable String imageName) throws IOException {
         byte[] image = productImageService.getProductImage(imageName);
@@ -54,7 +54,7 @@ public class ImageController {
         return ResponseEntity.ok().contentType(MediaType.parseMediaType(mimeType)).body(image);
     }
 
-    @Operation(summary = "Get category's image", tags = {"tutorials", "get", "public"})
+    @Operation(summary = "Get category's image", tags = {"image", "get", "public"})
     @GetMapping("/category/{imageName}")
     public ResponseEntity<byte[]> getCategoryImage(@PathVariable String imageName) throws IOException {
         byte[] image = categoryImageService.getCategoryImage(imageName);

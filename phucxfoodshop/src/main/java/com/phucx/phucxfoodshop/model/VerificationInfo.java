@@ -9,6 +9,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 public class VerificationInfo {
+    private Boolean emailVerified;
     private Boolean phoneVerified;
     private Boolean profileVerified;
 }

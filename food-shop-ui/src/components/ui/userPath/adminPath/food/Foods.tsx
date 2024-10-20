@@ -97,8 +97,7 @@ export default function AdminFoodsComponent(){
                     <div className="container">
                         <h2 className="custom_heading">Foods</h2>
                         <p className="custom_heading-text">
-                            There are many variations of passages of Lorem Ipsum available, but
-                            the majority have
+                            
                         </p>
                         <div className=" layout_padding2">
                             <div className="card-deck">

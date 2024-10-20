@@ -38,7 +38,7 @@ public class UserController {
     private UserPasswordService userPasswordService;
 
     @Operation(summary = "Get user information", 
-        tags = {"get", "tutorials", "public"},
+        tags = {"get", "user"},
         description = "Get username, roles of a user")
     @GetMapping("/userInfo")
     public ResponseEntity<UserAuthentication> getUserInfo(Authentication authentication) throws UserNotFoundException{
@@ -48,7 +48,7 @@ public class UserController {
     }
 
     @Operation(summary = "Generate OTP code for user's phone number", 
-        tags = {"post", "private"}, 
+        tags = {"post", "user"}, 
         description = "Generate OTP code for user's phone number")
     @PostMapping("/phone/generateOTP")
     public ResponseEntity<Map<String, String>> generateOTP(@RequestParam(name = "phone") String phone) {
@@ -60,7 +60,7 @@ public class UserController {
     }
 
     @Operation(summary = "Verify user's phone number", 
-        tags = {"post", "private"}, 
+        tags = {"post", "user"}, 
         description = "Verify user's phone number")
     @PostMapping("/phone/verifyOTP")
     public ResponseEntity<ResponseFormat> verifyUserOTP(
@@ -73,7 +73,7 @@ public class UserController {
         return ResponseEntity.ok().body(responseFormat);
     }
 
-    @Operation(summary = "Update user password", tags = {"post", "private"})
+    @Operation(summary = "Update user password", tags = {"post", "user"})
     @PostMapping("/changePassword")
     public ResponseEntity<ResponseFormat> changePassword(
         @RequestBody UserChangePassword userChangePassword

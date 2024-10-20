@@ -59,7 +59,7 @@ public class UserServiceImp implements UserService {
 	}
 	@Override
 	public Boolean registerCustomer(UserRegisterInfo userRegisterInfo) throws UserAuthenticationException {
-        log.info("registerCustomer({})", userRegisterInfo);
+        log.info("registerCustomer(username={})", userRegisterInfo.getUsername());
         String password = userRegisterInfo.getPassword();
         String confirmPassword = userRegisterInfo.getConfirmPassword();
         String username = userRegisterInfo.getUsername();
@@ -138,5 +138,63 @@ public class UserServiceImp implements UserService {
         return userRepository.findByEmployeeID(employeeID).orElseThrow(
             ()-> new EmployeeNotFoundException("Employee " + employeeID + " does not found!")
         );
+    }
+
+    @Override
+    public Page<UserDetails> getUsersByRoleAndUsernameLike(String rolename, String username, Integer pageNumber) {
+        log.info("getUsersByRoleAndUsernameLike(rolename={}, username={}, pageNumber={})", rolename, username, pageNumber);
+        Pageable pageable = PageRequest.of(pageNumber, WebConstant.PAGE_SIZE);
+        String searchValue = "%" + username + "%";
+        return userDetailsRepository.findByUsernameLikeAndRolename(searchValue, rolename, pageable);
+    }
+    @Override
+    public Page<UserDetails> getUsersByRoleAndFirstNameLike(String rolename, String firstName, Integer pageNumber) {
+        log.info("getUsersByRoleAndFirstNameLike(rolename={}, firstName={}, pageNumber={})", rolename, firstName, pageNumber);
+        Pageable pageable = PageRequest.of(pageNumber, WebConstant.PAGE_SIZE);
+        String searchValue = "%" + firstName + "%";
+        return userDetailsRepository.findByFirstNameLikeAndRolename(searchValue, rolename, pageable);
+    }
+    @Override
+    public Page<UserDetails> getUsersByRoleAndLastNameLike(String rolename, String lastName, Integer pageNumber) {
+        log.info("getUsersByRoleAndLastNameLike(rolename={}, lastName={}, pageNumber={})", rolename, lastName, pageNumber);
+        Pageable pageable = PageRequest.of(pageNumber, WebConstant.PAGE_SIZE);
+        String searchValue = "%" + lastName + "%";
+        return userDetailsRepository.findByLastNameLikeAndRolename(searchValue, rolename, pageable);
+    }
+    @Override
+    public Page<UserDetails> getUsersByRoleAndEmailLike(String rolename, String email, Integer pageNumber) {
+        log.info("getUsersByRoleAndEmailLike(rolename={}, email={}, pageNumber={})", rolename, email, pageNumber);
+        Pageable pageable = PageRequest.of(pageNumber, WebConstant.PAGE_SIZE);
+        String searchValue = "%" + email + "%";
+        return userDetailsRepository.findByEmailLikeAndRolename(searchValue, rolename, pageable);
+    }
+    @Override
+    public Boolean registerEmployee(UserRegisterInfo userRegisterInfo) throws UserAuthenticationException {
+        log.info("registerEmployee(username={})", userRegisterInfo.getUsername());
+        String password = userRegisterInfo.getPassword();
+        String confirmPassword = userRegisterInfo.getConfirmPassword();
+        String username = userRegisterInfo.getUsername();
+        String firstname = userRegisterInfo.getFirstname();
+        String lastname = userRegisterInfo.getLastname();
+        String email = userRegisterInfo.getEmail();
+        if(!confirmPassword.equals(password)){
+            throw new UserAuthenticationException("Password and confirm password do match!");
+        }
+        Optional<User> optional = this.userRepository.findByUsername(userRegisterInfo.getUsername());
+        if(optional.isPresent()){
+            throw new UserAuthenticationException("User " + username + " already exists!");
+        }
+        Optional<User> emailOptional = this.userRepository.findByEmail(userRegisterInfo.getEmail());
+        if(emailOptional.isPresent()){
+            throw new UserAuthenticationException("Email " + userRegisterInfo.getEmail() + " already exists!");
+        }
+        String userID = UUID.randomUUID().toString();
+        String employeeID = UUID.randomUUID().toString();
+        String profileID = UUID.randomUUID().toString();
+        String hashedPassword = this.passwordEncoder.encode(password);
+        Boolean status = this.userRepository.createEmployeeUser(
+            userID, employeeID, profileID, firstname, lastname, 
+            email, username, hashedPassword);
+        return status;
     }
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.phucx.phucxfoodshop.constant.UserSearch;
 import com.phucx.phucxfoodshop.exceptions.UserNotFoundException;
 import com.phucx.phucxfoodshop.model.CustomerAdminDetails;
 import com.phucx.phucxfoodshop.model.CustomerDetail;
@@ -19,11 +20,13 @@ import com.phucx.phucxfoodshop.model.EmployeeAdminDetails;
 import com.phucx.phucxfoodshop.model.EmployeeDetail;
 import com.phucx.phucxfoodshop.model.ResponseFormat;
 import com.phucx.phucxfoodshop.model.UserDetails;
+import com.phucx.phucxfoodshop.model.UserRegisterInfo;
 import com.phucx.phucxfoodshop.service.customer.CustomerAdminService;
 import com.phucx.phucxfoodshop.service.customer.CustomerService;
 import com.phucx.phucxfoodshop.service.employee.EmployeeAdminService;
 import com.phucx.phucxfoodshop.service.employee.EmployeeService;
 import com.phucx.phucxfoodshop.service.user.UserPasswordService;
+import com.phucx.phucxfoodshop.service.user.UserService;
 
 import io.swagger.v3.oas.annotations.Operation;
 
@@ -41,9 +44,11 @@ public class AdminController {
     private CustomerAdminService customerAdminService;
     @Autowired
     private UserPasswordService userPasswordService;
+    @Autowired
+    private UserService userService;
 
     @Operation(summary = "Check user role", 
-        tags = {"get", "tutorials", "admin"},
+        tags = {"get", "check", "admin"},
         description = "Check whether a user is admin or not")
     @GetMapping(value = "/isAdmin", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseFormat> isAdmin(){
@@ -53,7 +58,7 @@ public class AdminController {
     }
 
     @Operation(summary = "Get user by CustomerID", 
-        tags = {"get", "tutorials", "admin"})
+        tags = {"get", "customer info", "admin"})
     @GetMapping(value = "/customers/{customerID}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CustomerDetail> getUserByCustomerID(
         @PathVariable(name = "customerID") String customerID
@@ -63,7 +68,7 @@ public class AdminController {
     }
 
     @Operation(summary = "Get employee by EmployeeID", 
-        tags = {"get", "tutorials", "admin"})
+        tags = {"get", "employee info", "admin"})
     @GetMapping(value = "/employees/{employeeID}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<EmployeeDetail> getEmployeeDetail(
         @PathVariable(name = "employeeID") String employeeID
@@ -73,7 +78,7 @@ public class AdminController {
     }
     
 
-    @Operation(summary = "Update employee information", tags = {"post", "tutorials", "admin"})
+    @Operation(summary = "Update employee information", tags = {"post", "update employee", "admin"})
     @PostMapping(value = "/employees", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseFormat> updateEmployeeDetail(
         @RequestBody EmployeeAdminDetails employee
@@ -83,7 +88,7 @@ public class AdminController {
         return ResponseEntity.ok().body(new ResponseFormat(status));
     }
 
-    @Operation(summary = "Update customer information", tags = {"post", "tutorials", "admin"})
+    @Operation(summary = "Update customer information", tags = {"post", "update customer", "admin"})
     @PostMapping(value = "/customers", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseFormat> updateCustomerDetails(
         @RequestBody CustomerAdminDetails customer
@@ -93,9 +98,18 @@ public class AdminController {
         return ResponseEntity.ok().body(new ResponseFormat(status));
     }
 
+    @Operation(summary = "Register employee", tags = {"put", "admin", "employee"})
+    @PostMapping(value = "/registerEmployee", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResponseFormat> registerEmployee(
+        @RequestBody UserRegisterInfo userRegisterInfo
+    ){
+        Boolean status = userService.registerEmployee(userRegisterInfo);
+        return ResponseEntity.ok().body(new ResponseFormat(status));
+    }
 
-    @Operation(summary = "Get employees", tags = {"get", "admin"})
+
     @GetMapping("/employees")
+    @Operation(summary = "Get employees", tags = {"get", "admin", "employees"})
     public ResponseEntity<Page<UserDetails>> getEmployees(
         @RequestParam(name = "page", required = false) Integer pagenumber
     ){
@@ -104,8 +118,8 @@ public class AdminController {
         return ResponseEntity.ok().body(users);
     }
 
-    @Operation(summary = "Get customers", tags = {"get", "admin"})
     @GetMapping("/customers")
+    @Operation(summary = "Get customers", tags = {"get", "admin", "customers"})
     public ResponseEntity<Page<UserDetails>> getCusmoters(
         @RequestParam(name = "page", required = false) Integer pagenumber
     ){
@@ -114,26 +128,52 @@ public class AdminController {
         return ResponseEntity.ok().body(users);
     }
 
-    @Operation(summary = "Get customer user by userId", tags = {"get", "tutorials", "admin"})
+    @Operation(summary = "Get customer user by userId", tags = {"get", "customer info", "admin"})
     @GetMapping(value = "/customers/user/{userID}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CustomerAdminDetails> getCustomerUserByUserID(@PathVariable(name = "userID") String userID){
         CustomerAdminDetails customer = customerAdminService.getCustomerAdminDetails(userID);
         return ResponseEntity.ok().body(customer);
     }
 
-    @Operation(summary = "Get employee user by userId", tags = {"get", "tutorials", "admin"})
+    @Operation(summary = "Get employee user by userId", tags = {"get", "employee info", "admin"})
     @GetMapping(value = "/employees/user/{userID}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<EmployeeAdminDetails> getEmployeeUserByUserID(@PathVariable(name = "userID") String userID){
         EmployeeAdminDetails employee = employeeAdminService.getEmployeeAdminDetails(userID);
         return ResponseEntity.ok().body(employee);
     }
 
-    @Operation(summary = "Reset user password", tags = {"post", "tutorials", "admin"})
+    @Operation(summary = "Reset user password", tags = {"post", "change password", "admin"})
     @PostMapping(value = "/user/{userID}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseFormat> resetUserPassword(@PathVariable(name = "userID") String userID){
         Boolean result = userPasswordService.resetUserPasswordRandom(userID);
         ResponseFormat responseFormat = new ResponseFormat(result);
         return ResponseEntity.ok().body(responseFormat);
+    }
+
+    @Operation(summary = "Search for customers", tags = {"get", "search", "admin"})
+    @GetMapping(value = "/customers/users", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Page<UserDetails>> searchForCustomers(
+        @RequestParam(name = "searchType") UserSearch searchType,
+        @RequestParam(name = "searchValue") String searchValue,
+        @RequestParam(name = "page", required = false) Integer page
+    ){
+        if(page==null) page = 0;
+        Page<UserDetails> users = customerAdminService.getUsers(
+            searchType, searchValue, page);
+        return ResponseEntity.ok().body(users);
+    }
+
+    @Operation(summary = "Search for employees", tags = {"get", "search", "admin"})
+    @GetMapping(value = "/employees/users", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Page<UserDetails>> searchForEmployees(
+        @RequestParam(name = "searchType") UserSearch searchType,
+        @RequestParam(name = "searchValue") String searchValue,
+        @RequestParam(name = "page", required = false) Integer page
+    ){
+        if(page==null) page = 0;
+        Page<UserDetails> users = employeeAdminService.getUsers(
+            searchType, searchValue, page);
+        return ResponseEntity.ok().body(users);
     }
 
 }

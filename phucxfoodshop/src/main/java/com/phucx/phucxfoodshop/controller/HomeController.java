@@ -31,7 +31,7 @@ public class HomeController {
     private ProductService productService;
 
     // Category
-    @Operation(summary = "Get all categories", tags = {"tutorials", "get", "public"})
+    @Operation(summary = "Get all categories", tags = {"category", "get", "public"})
     @GetMapping(value = "categories", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Page<Category>> getCategories(
         @RequestParam(name = "page", required = false) Integer pageNumber
@@ -43,7 +43,7 @@ public class HomeController {
         return ResponseEntity.ok().body(data);
     }
 
-    @Operation(summary = "Get category by name", tags = {"tutorials", "get", "public"})
+    @Operation(summary = "Get category by name", tags = {"category", "get", "public"})
     @GetMapping(value = "categories/name/{categoryName}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Category> getCategory(
         @PathVariable(name = "categoryName") String categoryName
@@ -52,7 +52,7 @@ public class HomeController {
         return ResponseEntity.ok().body(data);
     }
 
-    @Operation(summary = "Get category by id", tags = {"tutorials", "get", "public"})
+    @Operation(summary = "Get category by id", tags = {"category", "get", "public"})
     @GetMapping(value = "categories/id/{categoryID}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Category> getCategoryByID(
         @PathVariable(name = "categoryID") Integer categoryID
@@ -61,7 +61,7 @@ public class HomeController {
         return ResponseEntity.ok().body(data);
     }
 
-    @Operation(summary = "Get products by category", tags = {"tutorials", "get", "public"})
+    @Operation(summary = "Get products by category", tags = {"product", "get", "public"})
     @GetMapping(value = "categories/{categoryName}/products", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Page<CurrentProduct>> getProductsByCategoryName(
         @PathVariable(name = "categoryName") String categoryName,
@@ -75,7 +75,7 @@ public class HomeController {
 
 
     // products
-    @Operation(summary = "Get products", tags = {"tutorials", "get", "public"})
+    @Operation(summary = "Get products", tags = {"product", "get", "public"})
     @GetMapping(value = "products", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Page<CurrentProduct>> getProducts(
         @RequestParam(name = "page", required = false) Integer pageNumber
@@ -85,14 +85,14 @@ public class HomeController {
         return ResponseEntity.ok().body(productsPageable);
     }
     
-    @Operation(summary = "Get product by id", tags = {"tutorials", "get", "public"})
+    @Operation(summary = "Get product by id", tags = {"product", "get", "public"})
     @GetMapping(value = "products/id/{productID}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ProductDetail> getProductByID(@PathVariable(name = "productID") Integer productID) throws NotFoundException{
         ProductDetail productDetails = productService.getProductDetail(productID);
         return ResponseEntity.ok().body(productDetails);
     }
 
-    @Operation(summary = "Get recommended products", tags = {"tutorials", "get", "public"})
+    @Operation(summary = "Get recommended products", tags = {"product", "get", "public"})
     @GetMapping(value = "/products/recommended", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<CurrentProduct>> getRecommendedProducts(){
         List<CurrentProduct> products = productService

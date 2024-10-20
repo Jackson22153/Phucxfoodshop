@@ -1,5 +1,6 @@
 package com.phucx.phucxfoodshop.service.order.imp;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,7 @@ import com.phucx.phucxfoodshop.constant.NotificationTopic;
 import com.phucx.phucxfoodshop.constant.NotificationTitle;
 import com.phucx.phucxfoodshop.constant.OrderStatus;
 import com.phucx.phucxfoodshop.exceptions.CustomerNotFoundException;
+import com.phucx.phucxfoodshop.exceptions.EmailNotVerifiedException;
 import com.phucx.phucxfoodshop.exceptions.EmployeeNotFoundException;
 import com.phucx.phucxfoodshop.exceptions.InvalidDiscountException;
 import com.phucx.phucxfoodshop.exceptions.InvalidOrderException;
@@ -70,19 +72,29 @@ public class CustomerOrderServiceImp implements CustomerOrderService {
     public PaymentResponse placeOrder(OrderWithProducts order, String userID) 
     throws JsonProcessingException, NotFoundException, InvalidDiscountException, InvalidOrderException, CustomerNotFoundException, PayPalRESTException {
         log.info("placeOrder(order={}, userID={})", order, userID);
+        User user = userService.getUserById(userID);
+        if(!user.getEmailVerified())
+            throw new EmailNotVerifiedException("Your email has not verified yet!");
+
         // fetch customer
         CustomerDetail customer = customerService.getCustomerByUserID(userID);
         order.setCustomerID(customer.getCustomerID());
         // process order
         OrderDetails newOrder = this.orderProcessing(order);
-        // create a notification 
         if(newOrder ==null){
             throw new RuntimeException("Error when placing an order");
         }
-        // payment
-        PaymentDTO payment = new PaymentDTO(newOrder.getTotalPrice().doubleValue(), 
-            newOrder.getOrderID(), order.getMethod(), order.getCustomerID(), redirectPaymentUrl);
-        PaymentResponse paymentResponse = paymentService.createPayment(payment);
+        // handle payment based on its method
+        BigDecimal totalPrice = newOrder.getTotalPrice()
+            .add(newOrder.getFreight());
+        PaymentDTO payment = new PaymentDTO(
+            totalPrice.doubleValue(), 
+            newOrder.getOrderID(), 
+            order.getMethod(), 
+            order.getCustomerID(), 
+            redirectPaymentUrl);
+        PaymentResponse paymentResponse = paymentService
+            .createPayment(payment);
         return paymentResponse;
     }
 

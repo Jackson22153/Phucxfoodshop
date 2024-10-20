@@ -15,14 +15,16 @@ public interface CustomerService {
     public CustomerDetail getCustomerByID(String customerID) throws CustomerNotFoundException;
     public CustomerDetail getCustomerByUserID(String userID) throws CustomerNotFoundException;
     public CustomerDetail getCustomerByUsername(String username) throws CustomerNotFoundException;
+    public CustomerDetail getCustomerDetail(String userID) throws CustomerNotFoundException;
+    
     public List<CustomerDetail> getCustomersByUserIDs(List<String> userIDs);
-
     public List<CustomerDetail> getCustomersByIDs(List<String> customerIDs);
-    public CustomerDetail updateCustomerInfo(CustomerDetail customer) throws CustomerNotFoundException;
 
+    public CustomerDetail updateCustomerInfo(CustomerDetail customer) throws CustomerNotFoundException;
     public CustomerDetail addNewCustomer(CustomerDetail customer) throws InvalidUserException;
 
-    public CustomerDetail getCustomerDetail(String userID) throws CustomerNotFoundException;
+    public void sendVerificationEmail(String username, String baseUrl);
+
     public CustomerFullDetails getCustomerDetails(String userID);
     public CustomerFullDetails getCustomerDetailsByUsername(String username);
 

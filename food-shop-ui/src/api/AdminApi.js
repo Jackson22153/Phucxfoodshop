@@ -1,8 +1,15 @@
 import axios from "axios";
-import { AccountAdminCustomer, AccountAdminEmployee, AccountAdminUserCustomer, AccountAdminUserEmployee, AdminResetUserPassword, CategoryAdminUrl, CustomersAdminUrl, DiscountAdminUrl, DiscountTypeAdminUrl, 
-    DiscountsByProductAdminUrl, EmployeesAdminUrl, IsAdminUrl, ProductAdminUrl, 
-    ProductSizeAdminUrl,
-    ProductSizesAdminUrl
+import { 
+    AccountAdminCustomer, AccountAdminEmployee, AccountAdminUserCustomer, 
+    AccountAdminUserEmployee, AdminResetUserPassword, CategoryAdminUrl, 
+    CustomersAdminUrl, DiscountAdminUrl, DiscountTypeAdminUrl, 
+    DiscountsByProductAdminUrl, EmployeesAdminUrl, IsAdminUrl, 
+    ProductAdminUrl, ProductSizeAdminUrl, ProductSizesAdminUrl, 
+    GetRevenuePerMonth,
+    GetTopSellingProductByYear,
+    GetPaymentStatusPercentageByYear,
+    GetPaymentYears,
+    RegisterEmployeeUrl
 } from "../constant/FoodShoppingApiURL";
 import { getCsrfTokenFromCookie } from "../service/Cookie";
 
@@ -103,7 +110,7 @@ export function getCustomers(page){
     });
 }
 export function getCustomersBySearchParam(page, searchParam, searchValue){
-    return axios.get(`${CustomersAdminUrl}?page=${page}&${searchParam}=${searchValue}`, {
+    return axios.get(`${CustomersAdminUrl}?page=${page}&searchType=${searchParam}&searchValue=${searchValue}`, {
         withCredentials: true,
         headers:{
             "Content-Type": 'application/json',
@@ -164,7 +171,7 @@ export function getEmployee(employeeID){
     });
 }
 export function getEmployeesBySearchParam(page, searchParam, searchValue){
-    return axios.get(`${EmployeesAdminUrl}?page=${page}&${searchParam}=${searchValue}`, {
+    return axios.get(`${EmployeesAdminUrl}?page=${page}&searchType=${searchParam}&searchValue=${searchValue}`, {
         withCredentials: true,
         headers:{
             "Content-Type": 'application/json',
@@ -225,6 +232,56 @@ export function getDiscountTypes(pageNumber){
         withCredentials: true,
         headers:{
             "Content-Type": 'application/json',
+        }
+    });
+}
+
+// get revenue
+export function getRevenuePerMonthByYear(year){
+    return axios.get(`${GetRevenuePerMonth}?year=${year}`,{
+        withCredentials: true,
+        headers:{
+            "Content-Type": 'application/json',
+        }
+    });
+}
+
+// get selling products
+export function getTopSellingProductByYear(year){
+    return axios.get(`${GetTopSellingProductByYear}?year=${year}`,{
+        withCredentials: true,
+        headers:{
+            "Content-Type": 'application/json',
+        }
+    });
+}
+// get payment status percentage
+export function getPaymentStatusPercentageByYear(year){
+    return axios.get(`${GetPaymentStatusPercentageByYear}?year=${year}`,{
+        withCredentials: true,
+        headers:{
+            "Content-Type": 'application/json',
+        }
+    });
+}
+
+// get payment years
+export function getPaymentYears(){
+    return axios.get(`${GetPaymentYears}`,{
+        withCredentials: true,
+        headers:{
+            "Content-Type": 'application/json',
+        }
+    });
+}
+
+// register employee
+export function registerEmployee(data){
+    return axios.post(`${RegisterEmployeeUrl}`, JSON.stringify(data),{
+        withCredentials: true,
+        headers:{
+            "Content-Type": 'application/json',
+            'X-XSRF-TOKEN': getCsrfTokenFromCookie()
         }
     });
 }

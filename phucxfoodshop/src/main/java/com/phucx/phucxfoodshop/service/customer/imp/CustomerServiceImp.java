@@ -19,6 +19,7 @@ import com.phucx.phucxfoodshop.model.UserVerification;
 import com.phucx.phucxfoodshop.model.VerificationInfo;
 import com.phucx.phucxfoodshop.repository.CustomerDetailRepository;
 import com.phucx.phucxfoodshop.service.customer.CustomerService;
+import com.phucx.phucxfoodshop.service.email.EmailService;
 import com.phucx.phucxfoodshop.service.image.CustomerImageService;
 import com.phucx.phucxfoodshop.service.user.UserProfileService;
 import com.phucx.phucxfoodshop.service.user.UserService;
@@ -38,6 +39,8 @@ public class CustomerServiceImp implements CustomerService {
     private CustomerImageService customerImageService;
     @Autowired
     private UserProfileService userProfileService;
+    @Autowired
+    private EmailService emailService;
 
     private final String CUSTOMER = "CUSTOMER";
 
@@ -120,13 +123,14 @@ public class CustomerServiceImp implements CustomerService {
         log.info("getCustomerDetails(userID={})", userID);
         // get customer details
         CustomerDetail customerDetail = this.getCustomerDetail(userID);
+        // fetch user
+        User fetchedUser = userService.getUserById(userID);
         // get user verification
         UserVerification userVerification = userProfileService.getUserVerification(userID);
         VerificationInfo verificationInfo = new VerificationInfo(
+            fetchedUser.getEmailVerified(),
             userVerification.getPhoneVerification(), 
             userVerification.getProfileVerification());
-        // fetch user
-        User fetchedUser = userService.getUserById(userID);
 
         String picture = customerDetail.getPicture()!=null?customerImageService.getImageUrl(customerDetail.getPicture()):null;
         // assemble customer details
@@ -180,5 +184,11 @@ public class CustomerServiceImp implements CustomerService {
             }
         });
         return users;
+    }
+    @Override
+    public void sendVerificationEmail(String username, String baseUrl) {
+        log.info("sendVerificationEmail(username={})", username);
+        User user = userService.getUser(username);
+        emailService.sendVerificationEmail(user.getEmail(), username, baseUrl);
     }
 }

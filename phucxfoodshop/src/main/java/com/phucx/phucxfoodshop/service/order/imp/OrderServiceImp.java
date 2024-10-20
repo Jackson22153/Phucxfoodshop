@@ -245,9 +245,9 @@ public class OrderServiceImp implements OrderService{
     public InvoiceDetails getInvoiceByCustomerID(String customerID, String orderID) throws JsonProcessingException, NotFoundException, ShipperNotFoundException, EmployeeNotFoundException {
         log.info("getInvoiceByCustomerID(customerID={}, orderID={})", customerID, orderID);
         List<Invoice> invoices = invoiceRepository.findByOrderIDAndCustomerID(orderID, customerID);
+        log.info("Invoices: {}", invoices);
         if(invoices==null || invoices.isEmpty()) 
             throw new NotFoundException("Invoice " + orderID + " of customer "+ customerID + " does not found");
-        log.info("Invoices: {}", invoices);
         InvoiceDetails invoice = convertOrderService.convertInvoiceDetails(invoices);
         return invoice;
     }

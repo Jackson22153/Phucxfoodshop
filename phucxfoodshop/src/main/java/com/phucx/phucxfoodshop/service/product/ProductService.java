@@ -14,6 +14,7 @@ import com.phucx.phucxfoodshop.model.ProductDetails;
 import com.phucx.phucxfoodshop.model.ProductDiscountsDTO;
 import com.phucx.phucxfoodshop.model.ProductStockTableType;
 import com.phucx.phucxfoodshop.model.ResponseFormat;
+import com.phucx.phucxfoodshop.model.SellingProduct;
 
 public interface ProductService {
     // update product's instocks
@@ -57,5 +58,7 @@ public interface ProductService {
     public Page<Product> getProductsByCategoryName(int pageNumber, int pageSize, String categoryName);
     // 
     public Page<ExistedProduct> getExistedProducts(int pageNumber, int pageSize);
+
+    public List<SellingProduct> getTopSellingProducts(Integer year, Integer limit);
 
 }

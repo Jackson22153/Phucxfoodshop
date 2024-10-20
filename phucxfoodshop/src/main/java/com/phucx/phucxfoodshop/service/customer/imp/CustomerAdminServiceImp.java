@@ -1,16 +1,19 @@
 package com.phucx.phucxfoodshop.service.customer.imp;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.phucx.phucxfoodshop.constant.NotificationStatus;
 import com.phucx.phucxfoodshop.constant.NotificationTitle;
 import com.phucx.phucxfoodshop.constant.NotificationTopic;
+import com.phucx.phucxfoodshop.constant.UserSearch;
 import com.phucx.phucxfoodshop.exceptions.CustomerNotFoundException;
 import com.phucx.phucxfoodshop.model.CustomerAdminDetails;
 import com.phucx.phucxfoodshop.model.CustomerAdminDetailsBuilder;
 import com.phucx.phucxfoodshop.model.CustomerDetail;
 import com.phucx.phucxfoodshop.model.User;
+import com.phucx.phucxfoodshop.model.UserDetails;
 import com.phucx.phucxfoodshop.model.UserNotificationDTO;
 import com.phucx.phucxfoodshop.model.UserVerification;
 import com.phucx.phucxfoodshop.model.VerificationInfo;
@@ -37,6 +40,8 @@ public class CustomerAdminServiceImp implements CustomerAdminService{
     private UserService userService;
     @Autowired
     private SendUserNotificationService sendUserNotificationService;
+
+    private final String CUSTOMER = "CUSTOMER";
 
     @Override
     public CustomerAdminDetails updateAdminCustomerInfo(CustomerAdminDetails customer) {
@@ -85,13 +90,14 @@ public class CustomerAdminServiceImp implements CustomerAdminService{
         CustomerDetail customer =customerDetailRepository.findByUserID(userID).orElseThrow(
             ()-> new CustomerNotFoundException("Customer with userId: " + userID + " does not found")
         );
+        // fetch user
+        User fetchedUser = userService.getUserById(userID);
         // get user verification
         UserVerification userVerification = userProfileService.getUserVerification(userID);
         VerificationInfo verificationInfo = new VerificationInfo(
+            fetchedUser.getEmailVerified(),
             userVerification.getPhoneVerification(), 
             userVerification.getProfileVerification());
-        // fetch user
-        User fetchedUser = userService.getUserById(userID);
 
         String picture = customer.getPicture()!=null?
             customerImageService.getImageUrl(customer.getPicture()):null;
@@ -115,6 +121,76 @@ public class CustomerAdminServiceImp implements CustomerAdminService{
             .withEmailVerified(fetchedUser.getEmailVerified())
             .withEnabled(fetchedUser.getEnabled())
             .build();
+    }
+
+    @Override
+    public Page<UserDetails> getByUsernameLike(String username, Integer pageNumber) {
+        log.info("getByUsernameLike(username={}, pageNumber={})", username, pageNumber);
+        Page<UserDetails> customers = userService
+            .getUsersByRoleAndUsernameLike(CUSTOMER, username, pageNumber);
+        customers.stream().forEach(user ->{
+            String picture = user.getPicture()!=null? 
+                customerImageService.getImageUrl(user.getPicture()):null;
+            user.setPicture(picture);
+        });
+        return customers;
+    }
+
+    @Override
+    public Page<UserDetails> getByFirstnameLike(String firstname, Integer pageNumber) {
+        log.info("getByFirstnameLike(firstname={}, pageNumber={})", firstname, pageNumber);
+        Page<UserDetails> customers = userService
+            .getUsersByRoleAndFirstNameLike(CUSTOMER, firstname, pageNumber);
+        customers.stream().forEach(user ->{
+            String picture = user.getPicture()!=null? 
+                customerImageService.getImageUrl(user.getPicture()):null;
+            user.setPicture(picture);
+        });
+        return customers;
+    }
+
+    @Override
+    public Page<UserDetails> getByLastnameLike(String lastname, Integer pageNumber) {
+        log.info("getByLastnameLike(lastname={}, pageNumber={})", lastname, pageNumber);
+        Page<UserDetails> customers = userService
+            .getUsersByRoleAndLastNameLike(CUSTOMER, lastname, pageNumber);
+        customers.stream().forEach(user ->{
+            String picture = user.getPicture()!=null? 
+                customerImageService.getImageUrl(user.getPicture()):null;
+            user.setPicture(picture);
+        });
+        return customers;
+    }
+
+    @Override
+    public Page<UserDetails> getByEmailLike(String email, Integer pageNumber) {
+        log.info("getByEmailLike(email={}, pageNumber={})", email, pageNumber);
+        Page<UserDetails> customers = userService
+            .getUsersByRoleAndEmailLike(CUSTOMER, email, pageNumber);
+        customers.stream().forEach(user ->{
+            String picture = user.getPicture()!=null? 
+                customerImageService.getImageUrl(user.getPicture()):null;
+            user.setPicture(picture);
+        });
+        return customers;
+    }
+
+    @Override
+    public Page<UserDetails> getUsers(UserSearch searchParam, String searchValue, Integer pageNumber) {
+        log.info("getUsers(searchParam={}, searchValue={}, pageNumber={})", searchParam, searchValue, pageNumber);
+        switch (searchParam) {
+            case USERNAME:
+                return this.getByUsernameLike(searchValue, pageNumber);
+            case EMAIL:
+                return this.getByEmailLike(searchValue, pageNumber);
+            case FIRSTNAME:
+                return this.getByFirstnameLike(searchValue, pageNumber);
+            case LASTNAME:
+                return this.getByLastnameLike(searchValue, pageNumber);
+        
+            default:
+                return null;
+        }
     }
     
 }

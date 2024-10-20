@@ -2,8 +2,8 @@ import { useState } from "react";
 import { LOGIN_AUTH } from "../../../../constant/FoodShoppingURL";
 import { RegisterInfo } from "../../../../model/Type";
 import { registerCustomer } from "../../../../api/AuthorizationApi";
-import { getEmailSentIcon } from "../../../../service/Image";
 import { Link } from "react-router-dom";
+import EmailModal from "../../../shared/functions/emailmodal/EmailModal";
 
 export default function RegisterComponent(){
     const [registerInfo, setRegisterInfo] = useState<RegisterInfo>({
@@ -15,7 +15,6 @@ export default function RegisterComponent(){
         email: ""
     })
     const [emailIsShowed, setEmailIsShowed] = useState(false)
-    const emailicon = getEmailSentIcon();
     const [error, setError] = useState("")
 
     const onChange = (e)=>{
@@ -26,15 +25,14 @@ export default function RegisterComponent(){
 
     const onClickRegister = async (e)=>{
         e.preventDefault();
+        setEmailIsShowed(isShowed => !isShowed);
         try {
             const res = await registerCustomer(registerInfo);
             if(200<=res.status&& res.status<300){
-                setEmailIsShowed(isShowed => !isShowed);
             }
         } catch (error) {
             setError(error.response.data.error)
         }
-        
     }
 
 
@@ -85,22 +83,7 @@ export default function RegisterComponent(){
                 </form>
             </div>
             {emailIsShowed &&
-                <div className="modal bg-blur d-block" tabIndex={-1} id="verification-email-modal" role="dialog">
-                    <div className="modal-dialog" role="document">
-                        <div className="modal-content">
-                            <div className="modal-body">
-                                <div className="w-100 d-flex justify-content-center">
-                                    <header>
-                                        <img className="w-100" src={emailicon} alt="" />
-                                    </header>
-                                </div>
-                                <h4 className="text-align-center mt-4"><b>Verify your email</b></h4>
-                                <p className="text-align-center mt-4">You have entered <b>{registerInfo.email}</b> as the email address for your account</p>
-                                <p className="text-align-center">Please verify this email address</p> 
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <EmailModal email={registerInfo.email}/>
             }
         </div>
     )

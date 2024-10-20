@@ -3,7 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { displayProductImage } from "../../../../service/Image";
 import { useContext, useEffect, useRef, useState } from "react";
 import { Notification } from "../../../../model/Type";
-import { getCustomerNotifications, getCustomerSummaryNotifications, 
+import { 
+    getCustomerNotifications, getCustomerSummaryNotifications, 
     getEmployeeNotifications, getEmployeeSummaryNotifications, 
     markAsReadCustomerNotification, markAsReadEmployeeNotification 
 } from "../../../../api/NotificationApi";
@@ -191,7 +192,7 @@ export default function NotificationDropdown(prop:Props){
                     </span>
                 </div>
                 <div className={`dropdown position-absolute z-3 ${IsNotificationDropdownEnabled?'active':''}`}>
-                    <div className="notify-body">
+                    <div className="notify-body overflow-auto" style={{maxHeight: "80vh"}}>
                         {notifications.map((notification, index)=>(
                             <Link to={getUrlFromNotification(notification, prop.roles)} key={index}>
                                 <div className={`notify-item cursor-pointer ${notification.isRead?'read':''}`} 

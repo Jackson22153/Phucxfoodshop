@@ -1,6 +1,6 @@
 import { ChangeEventHandler, FormEvent, useContext, useEffect, useRef, useState } from "react";
 import { CustomerDetail, District, Province, UserInfo, VerificationInfo, Ward } from "../../../../../model/Type";
-import { getCustomerInfo, updateUserInfo, UpdateUserPassword, uploadUserImage } from "../../../../../api/UserApi";
+import { getCustomerInfo, sendCustomerEmailVerification, updateUserInfo, UpdateUserPassword, uploadUserImage } from "../../../../../api/UserApi";
 import { Alert, Modal, ModalContextType } from "../../../../../model/WebType";
 import { ALERT_TYPE, ALERT_TIMEOUT } from "../../../../../constant/WebConstant";
 import ModalComponent from "../../../../shared/functions/modal/Modal";
@@ -12,6 +12,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import { CUSTOMER_INFO } from "../../../../../constant/FoodShoppingURL";
 import { getProvinces, getDistricts, getWards } from "../../../../../api/ShippingApi";
 import CreditCard from "../../../../shared/functions/creditcard/CreditCard";
+import EmailModal from "../../../../shared/functions/emailmodal/EmailModal";
 
 export default function UserInformationComponent(){
     const {setModal: setErrorModal} = useContext<ModalContextType>(modalContext)
@@ -26,6 +27,7 @@ export default function UserInformationComponent(){
     const [districts, setDistricts] = useState<District[]>([]);
     const [wards, setWards] = useState<Ward[]>([]);
 
+    const [isShowedEmail, setIsShowedEmail] = useState(false)
     const [isShowedPhoneVerification, setIsShowedPhoneVerification] = useState(false)
     const [changePasswordmodal, setChangePasswordModal] = useState<Modal>({
         title: 'Confirm action',
@@ -68,10 +70,12 @@ export default function UserInformationComponent(){
 
                 const verification = {
                     phoneVerified: data.verificationInfo.phoneVerified,
-                    profileVerified: data.verificationInfo.profileVerified
+                    profileVerified: data.verificationInfo.profileVerified,
+                    emailVerified: data.verificationInfo.emailVerified
                 }
                 setVerificationInfo(verification)
                 fetchProvinces(customerDetails)
+                console.log(data)
             }
         } catch (error) {
             setErrorModal({
@@ -337,6 +341,24 @@ export default function UserInformationComponent(){
         setCustomerInfo({...customerInfo, [name]:value})
     }
 
+    const onClickVerifyEmail = (e)=>{
+        e.preventDefault();
+        setIsShowedEmail(isShowed => !isShowed)
+        sendEmailVerification();
+    }
+    // send email verification
+    const sendEmailVerification = async ()=>{
+        try {
+            const res = await sendCustomerEmailVerification();
+            if(res.status){
+                const data = res.data;
+                console.log(data)
+            }
+        } catch (error) {
+            
+        }
+    }
+
     return(
         <div className="container emp-profile box-shadow-default">
             <AlertComponent alert={alert}/>
@@ -483,6 +505,9 @@ export default function UserInformationComponent(){
                                             </div>
                                             <div className="mb-3">
                                                 <label className="small mb-1" htmlFor="inputEmailAddress">Email address</label>
+                                                {(!verificationInfo.emailVerified) &&
+                                                    <span className="badge bg-danger ms-1 cursor-pointer" onClick={onClickVerifyEmail}>Verify</span> 
+                                                }
                                                 <input className="form-control" id="inputEmailAddress" type="email" placeholder="Enter your email address" value={userInfo.user.email} onChange={()=>{}}/>
                                             </div>
                                             <div className="row gx-3 mb-3">
@@ -515,6 +540,9 @@ export default function UserInformationComponent(){
                         handleConfirmButton={onClickConfirmProfileModal}/>
                     <ModalComponent modal={changePasswordmodal} handleCloseButton={onClickCloseUpdatePasswordModal}
                         handleConfirmButton={onClickConfirmUpdatePasswordModal}/>
+                    {isShowedEmail &&
+                    <EmailModal email={customerInfo.email}/>
+                    }
                 </div>
             }
         </div>

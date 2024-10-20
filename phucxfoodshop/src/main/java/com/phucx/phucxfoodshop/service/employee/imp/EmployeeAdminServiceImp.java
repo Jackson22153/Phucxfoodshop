@@ -1,16 +1,19 @@
 package com.phucx.phucxfoodshop.service.employee.imp;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.phucx.phucxfoodshop.constant.NotificationStatus;
 import com.phucx.phucxfoodshop.constant.NotificationTitle;
 import com.phucx.phucxfoodshop.constant.NotificationTopic;
+import com.phucx.phucxfoodshop.constant.UserSearch;
 import com.phucx.phucxfoodshop.exceptions.EmployeeNotFoundException;
 import com.phucx.phucxfoodshop.model.EmployeeAdminDetails;
 import com.phucx.phucxfoodshop.model.EmployeeAdminDetailsBuilder;
 import com.phucx.phucxfoodshop.model.EmployeeDetail;
 import com.phucx.phucxfoodshop.model.User;
+import com.phucx.phucxfoodshop.model.UserDetails;
 import com.phucx.phucxfoodshop.model.UserNotificationDTO;
 import com.phucx.phucxfoodshop.repository.EmployeeDetailRepostiory;
 import com.phucx.phucxfoodshop.service.employee.EmployeeAdminService;
@@ -32,6 +35,8 @@ public class EmployeeAdminServiceImp implements EmployeeAdminService{
     private SendUserNotificationService sendUserNotificationService;
     @Autowired
     private UserService userService;
+
+    private final String EMPLOYEE = "EMPLOYEE";
 
     @Override
     public EmployeeAdminDetails updateAdminEmployeeInfo(EmployeeAdminDetails employee) {
@@ -103,5 +108,76 @@ public class EmployeeAdminServiceImp implements EmployeeAdminService{
             .withEnabled(user.getEnabled())
             .withEmailVerified(user.getEmailVerified())
             .build();
+    }
+
+    
+    @Override
+    public Page<UserDetails> getByUsernameLike(String username, Integer pageNumber) {
+        log.info("getByUsernameLike(username={}, pageNumber={})", username, pageNumber);
+        Page<UserDetails> users = userService
+            .getUsersByRoleAndUsernameLike(EMPLOYEE, username, pageNumber);
+        users.stream().forEach(user ->{
+            String picture = user.getPicture()!=null?
+                employeeImageService.getImageUrl(user.getPicture()):null;
+            user.setPicture(picture);
+        });
+        return users;
+    }
+
+    @Override
+    public Page<UserDetails> getByFirstnameLike(String firstname, Integer pageNumber) {
+        log.info("getByFirstnameLike(firstname={}, pageNumber={})", firstname, pageNumber);
+        Page<UserDetails> users = userService
+            .getUsersByRoleAndFirstNameLike(EMPLOYEE, firstname, pageNumber);
+        users.stream().forEach(user ->{
+            String picture = user.getPicture()!=null?
+                employeeImageService.getImageUrl(user.getPicture()):null;
+            user.setPicture(picture);
+        });
+        return users;
+    }
+
+    @Override
+    public Page<UserDetails> getByLastnameLike(String lastname, Integer pageNumber) {
+        log.info("getByLastnameLike(lastname={}, pageNumber={})", lastname, pageNumber);
+        Page<UserDetails> users = userService.getUsersByRoleAndLastNameLike(
+            EMPLOYEE, lastname, pageNumber);
+        users.stream().forEach(user ->{
+            String picture = user.getPicture()!=null?
+                employeeImageService.getImageUrl(user.getPicture()):null;
+            user.setPicture(picture);
+        });
+        return users;
+    }
+
+    @Override
+    public Page<UserDetails> getByEmailLike(String email, Integer pageNumber) {
+        log.info("getByEmailLike(email={}, pageNumber={})", email, pageNumber);
+        Page<UserDetails> users = userService.getUsersByRoleAndEmailLike(
+            EMPLOYEE, email, pageNumber);
+        users.stream().forEach(user ->{
+            String picture = user.getPicture()!=null?
+                employeeImageService.getImageUrl(user.getPicture()):null;
+            user.setPicture(picture);
+        });
+        return users;
+    }
+
+    @Override
+    public Page<UserDetails> getUsers(UserSearch searchParam, String searchValue, Integer pageNumber) {
+        log.info("getUsers(searchParam={}, searchValue={}, pageNumber={})", searchParam, searchValue, pageNumber);
+        switch (searchParam) {
+            case USERNAME:
+                return this.getByUsernameLike(searchValue, pageNumber);
+            case EMAIL:
+                return this.getByEmailLike(searchValue, pageNumber);
+            case FIRSTNAME:
+                return this.getByFirstnameLike(searchValue, pageNumber);
+            case LASTNAME:
+                return this.getByLastnameLike(searchValue, pageNumber);
+        
+            default:
+                return null;
+        }
     }
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import com.phucx.phucxfoodshop.exceptions.EmailNotVerifiedException;
 import com.phucx.phucxfoodshop.exceptions.EmptyCartException;
 import com.phucx.phucxfoodshop.exceptions.EntityExistsException;
 import com.phucx.phucxfoodshop.exceptions.InSufficientInventoryException;
@@ -26,6 +27,15 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @ControllerAdvice
 public class ExceptionController extends ResponseEntityExceptionHandler {
+
+    @ExceptionHandler(value = EmailNotVerifiedException.class)
+    protected ResponseEntity<ResponseFormat> handleEmailNotVerified(EmailNotVerifiedException exception){
+        log.error("Error: {}", exception.getMessage());
+        ResponseFormat response = new ResponseFormat();
+        response.setStatus(false);
+        response.setError(exception.getMessage());
+        return ResponseEntity.badRequest().body(response);
+    }
 
     @ExceptionHandler(value = InvalidTokenException.class)
     protected ResponseEntity<ResponseFormat> handleInvalidTokenException(InvalidTokenException exception){

@@ -29,6 +29,7 @@ import com.phucx.phucxfoodshop.service.email.EmailService;
 import com.phucx.phucxfoodshop.service.user.UserPasswordService;
 import com.phucx.phucxfoodshop.service.user.UserProfileService;
 import com.phucx.phucxfoodshop.service.user.UserService;
+import com.phucx.phucxfoodshop.utils.ServerUrlUtils;
 
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpServletRequest;
@@ -49,7 +50,7 @@ public class AuthController {
     @Value("${phucx.ui-url}")
     private String uiUrl;
 
-    @Operation(tags = {"public", "get"}, summary = "Login endpoint",
+    @Operation(tags = {"public", "get", "login"}, summary = "Login endpoint",
         description = "Send a get request to /login endpoint as a Basic Authentication")
     @GetMapping("/login")
     public ResponseEntity<UserAuthentication> login(Authentication authentication) throws UserNotFoundException{
@@ -59,23 +60,24 @@ public class AuthController {
         return ResponseEntity.ok().body(userAuthentication);
     }
 
-    @Operation(tags = {"public", "post", "register"}, summary = "Customer register endpoint")
     @PostMapping("/register")
+    @Operation(tags = {"public", "post", "register"}, summary = "Customer register endpoint")
     public ResponseEntity<ResponseFormat> register(HttpServletRequest request, 
         @RequestBody UserRegisterInfo userRegisterInfo) throws UserAuthenticationException{
-
+        // create customer
         Boolean status = userService.registerCustomer(userRegisterInfo);
         String email = userRegisterInfo.getEmail();
         String username = userRegisterInfo.getUsername();
-        emailService.sendVerificationEmail(email, username, this.getBaseUrl(request));
+        //  send verification email
+        emailService.sendVerificationEmail(email, username, ServerUrlUtils.getBaseUrl(request));
         ResponseFormat responseFormat = new ResponseFormat();
         responseFormat.setMessage("A message has been sent to your email");
         responseFormat.setStatus(status);
         return ResponseEntity.ok().body(responseFormat);
     }
 
-    @Operation(tags = {"public", "get"}, summary = "User verification email")
     @GetMapping("/verify")
+    @Operation(tags = {"public", "get", "verify token"}, summary = "User verification email")
     public ResponseEntity<Void> verifyEmail(@RequestParam String token){
         Boolean result = emailService.validateEmail(token);
         String redirectUrl = uiUrl + "/auth";
@@ -99,7 +101,7 @@ public class AuthController {
         return ResponseEntity.ok().body(responseFormat);
     }
 
-    @Operation(summary = "Verfiy a reset password token", tags = {"public", "get", "verify reset token"})
+    @Operation(summary = "Verfiy a reset password token", tags = {"public", "get", "verify token"})
     @GetMapping("/verifyReset")
     public ResponseEntity<UserInfo> verifyResetToken(
         @RequestParam(name = "token", required = true) String token
@@ -108,7 +110,7 @@ public class AuthController {
         return ResponseEntity.ok().body(userInfo);
     }
 
-    @Operation(summary = "Reset user's password", tags = {"public", "get", "reset password"})
+    @Operation(summary = "Reset user's password", tags = {"public", "post", "change password"})
     @PostMapping("/reset")
     public ResponseEntity<ResponseFormat> resetPassword(
         @RequestBody UserChangePasswordToken userChangePasswordToken
@@ -116,14 +118,5 @@ public class AuthController {
         Boolean status = userPasswordService.resetUserPassword(userChangePasswordToken);
         ResponseFormat responseFormat = new ResponseFormat(status);
         return ResponseEntity.ok().body(responseFormat);
-    }
-    
-
-    // get base url
-    private String getBaseUrl(HttpServletRequest request){
-        String uri = request.getRequestURI().toString();
-        String url = request.getRequestURL().toString();
-        String baseurl = url.substring(0, url.length()-uri.length());
-        return baseurl;
     }
 }

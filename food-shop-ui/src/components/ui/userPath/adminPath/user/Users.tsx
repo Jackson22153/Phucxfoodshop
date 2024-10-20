@@ -1,6 +1,8 @@
 import { ChangeEventHandler, useEffect, useRef, useState } from 'react';
-import { getCustomers, getCustomersBySearchParam, getEmployees, 
-    getEmployeesBySearchParam} from '../../../../../api/AdminApi';
+import { 
+    getCustomers, getCustomersBySearchParam, 
+    getEmployees, getEmployeesBySearchParam
+} from '../../../../../api/AdminApi';
 import { UserAccount, Pageable } from '../../../../../model/Type';
 import EmployeeTable from '../../../../shared/functions/table/EmployeeTable';
 import CustomerTable from '../../../../shared/functions/table/CustomerTable';
@@ -66,7 +68,7 @@ export default function AdminUsersComponent(){
         const res = await getCustomersBySearchParam(pageNumber, searchParam, searchValue);
         if(res.status){
             const data = res.data;
-            setUsers(data);
+            setUsers(data.content);
         }
     }
     // search for employees
@@ -74,7 +76,7 @@ export default function AdminUsersComponent(){
         const res = await getEmployeesBySearchParam(pageNumber, searchParam, searchValue);
         if(res.status){
             const data = res.data;
-            setUsers(data);
+            setUsers(data.content);
         }
     }
 

@@ -98,13 +98,16 @@ public class EmailServiceImp implements EmailService {
         } catch (UserNotFoundException e){
             log.error("Error: {}", e.getMessage());
             return false;
+        } catch (Exception e){
+            log.error("Error: ", e.getMessage());
+            return false;
         }
         
     }
 
     // generate an email token
     private String generateEmailToken(String id, String email, String username) {
-        log.info("emailToken(email={}, username={})", email, username);
+        log.info("generateEmailToken(email={}, username={})", email, username);
         Map<String, Object> claims = new HashMap<>();
         claims.put("email", email);
         claims.put("type", JwtType.VERIFY_EMAIL);

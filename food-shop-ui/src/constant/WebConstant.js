@@ -61,3 +61,11 @@ export const MARK_NOTIFICATION_TYPE = {
     NOTIFICATION: 'Notification',
     BROADCAST: 'Broadcast'
 }
+
+// USER SEARCH
+export const USER_SEARCH = {
+    EMAIL: 'EMAIL',
+    FIRSTNAME: 'FIRSTNAME',
+    LASTNAME: 'LASTNAME',
+    USERNAME: 'USERNAME',
+}

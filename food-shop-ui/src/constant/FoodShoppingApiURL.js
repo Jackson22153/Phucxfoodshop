@@ -7,8 +7,6 @@ export const AuthorizationUserUrl = `${ServerURL}/auth/account`;
 export const AuthorizationAdminUrl = `${ServerURL}/admin/account`;
 
 export const AuthorizationUrl =  `${ServerURL}/auth/admin`;
-export const CustomersAdminUrl = `${AuthorizationUrl}/customers`;
-export const EmployeesAdminUrl = `${AuthorizationUrl}/employees`
 // account service
 const AccountService = `${ServerURL}/account`;
 // admin
@@ -18,6 +16,9 @@ export const AccountAdminEmployee = `${AdminUrl}/employees`;
 export const AccountAdminCustomer = `${AdminUrl}/customers`;
 export const AccountAdminUserEmployee = `${AccountAdminEmployee}/user`;
 export const AccountAdminUserCustomer = `${AccountAdminCustomer}/user`;
+export const CustomersAdminUrl = `${AccountAdminCustomer}/users`;
+export const EmployeesAdminUrl = `${AccountAdminEmployee}/users`
+export const RegisterEmployeeUrl = `${AdminUrl}/registerEmployee`;
 // reset password
 export const AdminResetUserPassword = `${AdminUrl}/user`;
 // customer
@@ -26,6 +27,7 @@ export const CustomerCreditCardUrl = `${CustomerUrl}/credit`;
 export const IsCustomerUrl = `${CustomerUrl}/isCustomer`;
 export const CustomerInfoUrl = `${CustomerUrl}/info`;
 export const UploadCustomerImageUrl= `${CustomerUrl}/image/upload`;
+export const SendCustomerEmailVerificationUrl = `${CustomerUrl}/sendEmailVerification`;
 // employee
 export const EmployeeUrl = `${AccountService}/employee`;
 export const IsEmployeeUrl = `${EmployeeUrl}/isEmployee`;
@@ -59,8 +61,12 @@ export const PaymentPayUrl = `${PaymentService}/pay`;
 const PaymentCODUrl = `${PaymentService}/cod`;
 export const PaymentCODSuccessful = `${PaymentCODUrl}/pay/successful`;
 export const PaymentCODSCancel = `${PaymentCODUrl}/pay/cancel`;
-
-
+// admin
+const PaymentAdminUrl = `${PaymentService}/admin`;
+export const GetRevenuePerMonth = `${PaymentAdminUrl}/revenue`;
+export const GetTopSellingProductByYear = `${PaymentAdminUrl}/sellingProduct`;
+export const GetPaymentStatusPercentageByYear = `${PaymentAdminUrl}/percentage`;
+export const GetPaymentYears = `${PaymentAdminUrl}/years`;
 // shop service
 const ShopService = `${ServerURL}/shop`;
 // home

@@ -37,11 +37,13 @@ export const EPMLOYEE_CONFIRMED_ORDER = `${EMPLOYEE_ORDER}/confirmed`
 export const EMPLOYEE_NOTIFICATION = `${EMPLOYEE_PATH}/notification`
 // adminPath
 export const ADMIN_CATEGORIES = `${ADMIN_PATH}/categories`;
-export const ADMIN_ADD_CATEGORY = `${ADMIN_CATEGORIES}/addCategory`;
+export const ADMIN_CHARTS = `${ADMIN_PATH}/chart`;
+export const ADMIN_ADD_CATEGORY = `${ADMIN_CATEGORIES}/addcategory`;
 export const ADMIN_PRODUCTS = `${ADMIN_PATH}/products`;
-export const ADMIN_ADD_PRODUCT = `${ADMIN_PRODUCTS}/addProduct`;
+export const ADMIN_ADD_PRODUCT = `${ADMIN_PRODUCTS}/addproduct`;
 export const ADMIN_USERS = `${ADMIN_PATH}/users`;
 export const ADMIN_ADD_USER = `${ADMIN_USERS}/adduser`;
+export const ADMIN_ADD_EMPLOYEE = `${ADMIN_PATH}/addemployee`;
 export const ADMIN_EMPLOYEE = `${ADMIN_PATH}/employee`;
 export const ADMIN_CUSTOMER = `${ADMIN_PATH}/customer`;
 // product

@@ -23,9 +23,13 @@ import com.phucx.phucxfoodshop.model.ResponseFormat;
 import com.phucx.phucxfoodshop.service.creditcard.CreditCardService;
 import com.phucx.phucxfoodshop.service.customer.CustomerService;
 import com.phucx.phucxfoodshop.service.image.CustomerImageService;
+import com.phucx.phucxfoodshop.utils.ServerUrlUtils;
+
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
 @RequestMapping(value = "/account/customer", produces = MediaType.APPLICATION_JSON_VALUE)
 public class CustomerController {
@@ -37,14 +41,14 @@ public class CustomerController {
     private CreditCardService creditCardService;
 
     @Operation(summary = "Check user's role", 
-        tags = {"get", "tutorials", "customer"})
+        tags = {"get", "check", "customer"})
     @GetMapping("/isCustomer")
     public ResponseEntity<ResponseFormat> isCustomer(){
         return ResponseEntity.ok().body(new ResponseFormat(true));
     }
     // GET CUSTOMER'S INFOMATION
     @Operation(summary = "Get customer information", 
-        tags = {"get", "tutorials", "customer"})
+        tags = {"get", "customer info", "customer"})
     @GetMapping("/info")
     public ResponseEntity<CustomerFullDetails> getUserInfo(Authentication authentication){
         String username = authentication.getName();
@@ -53,7 +57,7 @@ public class CustomerController {
     }
     // UPDATE CUSTOMER'S INFOMATION
     @Operation(summary = "Update customer information", 
-        tags = {"post", "tutorials", "customer"})
+        tags = {"post", "update customer", "customer"})
     @PostMapping("/info")
     public ResponseEntity<ResponseFormat> updateUserInfo(
         @RequestBody CustomerDetail customer
@@ -64,7 +68,7 @@ public class CustomerController {
 
     // get credit card
     @Operation(summary = "Get customer's credit card", 
-        tags = {"get", "tutorials", "customer"})
+        tags = {"get", "credit card", "customer"})
     @GetMapping(value = "/credit")
     public ResponseEntity<CreditCard> getCreditCard(
         Authentication authentication
@@ -75,7 +79,7 @@ public class CustomerController {
 
     // update credit card
     @Operation(summary = "Update customer's credit card", 
-        tags = {"post", "tutorials", "customer"})
+        tags = {"post", "update credit card", "customer"})
     @PostMapping(value = "/credit")
     public ResponseEntity<ResponseFormat> updateCreditCard(
         Authentication authentication,
@@ -88,7 +92,7 @@ public class CustomerController {
 
     // set image
     @Operation(summary = "Upload customer's image", 
-        tags = {"post", "tutorials", "customer"})
+        tags = {"post", "upload image", "customer", "image"})
     @PostMapping(value = "/image/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<ImageFormat> uploadCustomerImage(
         @RequestBody MultipartFile file, HttpServletRequest request
@@ -97,5 +101,16 @@ public class CustomerController {
         String imageUrl = customerImageService.getCurrentUrl(request) + "/" + filename;
         ImageFormat imageFormat = new ImageFormat(imageUrl);
         return ResponseEntity.ok().body(imageFormat);
+    }
+
+    @PostMapping("/sendEmailVerification")
+    @Operation(summary = "Send verification email to customer", tags = {"customer", "post"})
+    public ResponseEntity<ResponseFormat> sendEmailVerification (
+        HttpServletRequest request, Authentication authentication
+    ){
+        String baseUrl = ServerUrlUtils.getBaseUrl(request);
+        customerService.sendVerificationEmail(authentication.getName(), baseUrl);
+        ResponseFormat responseFormat = new ResponseFormat(true);
+        return ResponseEntity.ok().body(responseFormat);
     }
 }

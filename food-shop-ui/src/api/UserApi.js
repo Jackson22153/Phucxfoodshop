@@ -1,5 +1,6 @@
 import axios from "axios";
 import { CustomerCreditCardUrl, CustomerInfoUrl, CustomerNotificationsUrl, GenerateOTPPhoneUrl, GetShippingServicesUrl, IsCustomerUrl, 
+    SendCustomerEmailVerificationUrl, 
     UpdateUserPasswordUrl, UploadCustomerImageUrl, UploadEmployeeImageUrl, VerifyOTPPhoneUrl
 } from "../constant/FoodShoppingApiURL";
 import { getCsrfTokenFromCookie } from "../service/Cookie";
@@ -133,6 +134,16 @@ export function generateOTPPhoneForUser(phone){
 // verify phone otp
 export function verifyOTPPhoneForUser(otp, phone){
     return axios.post(`${VerifyOTPPhoneUrl}?otp=${otp}&phone=${phone}`, "", {
+        withCredentials: true,
+        headers: {
+            "Content-Type": 'application/json',
+            'X-XSRF-TOKEN': getCsrfTokenFromCookie()
+        }
+    })
+}
+
+export function sendCustomerEmailVerification(){
+    return axios.post(`${SendCustomerEmailVerificationUrl}`, "", {
         withCredentials: true,
         headers: {
             "Content-Type": 'application/json',

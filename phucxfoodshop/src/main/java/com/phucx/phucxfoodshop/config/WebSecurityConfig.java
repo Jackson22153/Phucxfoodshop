@@ -15,8 +15,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
-import org.springframework.security.web.csrf.XorCsrfTokenRequestAttributeHandler;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -31,7 +29,8 @@ import jakarta.servlet.http.HttpServletRequest;
 @EnableAspectJAutoProxy
 @ComponentScans({
     @ComponentScan("com.phucx.phucxfoodshop.aspects"),
-    @ComponentScan("com.phucx.phucxfoodshop.provider")
+    @ComponentScan("com.phucx.phucxfoodshop.provider"),
+    @ComponentScan("com.phucx.phucxfoodshop.converter")
 })
 public class WebSecurityConfig {
     // token
@@ -88,9 +87,9 @@ public class WebSecurityConfig {
             .requestMatchers("/payment/zalopay/pay/successful", "/payment/zalopay/callback").permitAll()
             .requestMatchers("/payment/paypal/**", "/payment/cod/**", "/payment/pay/**", "/payment/methods/**", "/payment/momo/**", "/payment/zalopay/**").hasRole("CUSTOMER")
             .requestMatchers("/payment/invoice/**").hasRole("CUSTOMER")
+            .requestMatchers("/payment/admin/**").hasRole("ADMIN")
             .requestMatchers("/register/**", "/test/**", "/forgot/**", "/verify/**", "/reset/**", "/verifyReset/**").permitAll()
             .requestMatchers("/login/**").authenticated()
-            .requestMatchers("/test/**").permitAll()
             .requestMatchers("/address/store").permitAll()
             .requestMatchers("/account/user/**", "/address/**").authenticated()
             .anyRequest().denyAll());

@@ -171,5 +171,11 @@ public class ProductImageServiceImp implements ProductImageService{
         });
         return products;
     }
+
+    @Override
+    public String getPictureUri(String imageName) {
+        String uri = "/" + serverName + imageUri;
+        return uri + "/" + imageName;
+    }
     
 }

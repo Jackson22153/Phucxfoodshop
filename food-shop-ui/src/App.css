@@ -2100,3 +2100,84 @@ input {
   -webkit-transform: rotateY(180deg);
   transform: rotateY(180deg);
 }
+
+/* chart */
+.chart-area {
+  position: relative;
+  height: 10rem;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .chart-area {
+    height: 20rem;
+  }
+}
+/* bar */
+.chart-bar {
+  position: relative;
+  height: 10rem;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .chart-bar {
+    height: 20rem;
+  }
+}
+/* chart pie */
+.chart-pie {
+  position: relative;
+  height: 15rem;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .chart-pie {
+    height: calc(20rem - 43px) !important;
+  }
+}
+
+
+.product-card {
+  display: flex;
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.product-image {
+  width: 100px;
+  height: 100px;
+  margin-right: 20px;
+}
+.product-details {
+  flex: 1;
+}
+.product-title {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.product-price {
+  margin: 4px 0px 0px;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: rgb(3, 2, 41);
+  font-weight: 700;
+  display: block;
+}
+.product-rating {
+  display: flex;
+  align-items: center;
+}
+.product-rating i {
+  font-size: 1.2em;
+  color: #ffc107;
+  margin-right: 5px;
+}
+
+.resend-email {
+  cursor: pointer;
+  text-decoration: underline;
+  color: blue;
+}

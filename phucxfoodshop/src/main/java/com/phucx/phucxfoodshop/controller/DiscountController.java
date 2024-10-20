@@ -32,7 +32,7 @@ public class DiscountController {
     private DiscountService discountService;
      // discount
 
-    @Operation(summary = "Add new discount", tags = {"tutorials", "put", "admin"})
+    @Operation(summary = "Add new discount", tags = {"discount", "put", "admin"})
     @PutMapping
     public ResponseEntity<ResponseFormat> insertDiscount(
         @RequestBody DiscountWithProduct discount
@@ -44,7 +44,7 @@ public class DiscountController {
         return ResponseEntity.ok().body(data);
     }
 
-    @Operation(summary = "Update discount", tags = {"tutorials", "post", "admin"})
+    @Operation(summary = "Update discount", tags = {"discount", "post", "admin"})
     @PostMapping
     public ResponseEntity<ResponseFormat> updateDiscount(
         @RequestBody DiscountWithProduct discount
@@ -54,7 +54,7 @@ public class DiscountController {
         return ResponseEntity.ok().body(data);
     }
 
-    @Operation(summary = "Update discount status", tags = {"tutorials", "post", "admin"})
+    @Operation(summary = "Update discount status", tags = {"discount", "post", "admin"})
     @PostMapping("/status")
     public ResponseEntity<ResponseFormat> updateDiscountStatus(
         @RequestBody DiscountDetail discount
@@ -64,7 +64,7 @@ public class DiscountController {
         return ResponseEntity.ok().body(data);
     }
 
-    @Operation(summary = "Get discounts of a product", tags = {"tutorials", "get", "admin"})
+    @Operation(summary = "Get discounts of a product", tags = {"discount", "get", "admin"})
     @GetMapping("/product/{productID}")
     public ResponseEntity<Page<DiscountDetail>> getDiscountsByProductID(
         @PathVariable(name = "productID") Integer productID,
@@ -76,7 +76,7 @@ public class DiscountController {
         return ResponseEntity.ok().body(discounts);
     }
 
-    @Operation(summary = "Get discount by id", tags = {"tutorials", "get", "admin"})
+    @Operation(summary = "Get discount by id", tags = {"discount", "get", "admin"})
     @GetMapping("/{discountID}")
     public ResponseEntity<DiscountDetail> getDiscountDetail(
         @PathVariable(name = "discountID") String discountID
@@ -85,7 +85,7 @@ public class DiscountController {
         return ResponseEntity.ok().body(discount);
     }
 
-    @Operation(summary = "Get discount's types ", tags = {"tutorials", "get", "admin"})
+    @Operation(summary = "Get discount's types ", tags = {"discount", "get", "admin"})
     @GetMapping("/type")
     public ResponseEntity<Page<DiscountType>> getDiscountTypes(
         @RequestParam(name = "page", required = false) Integer pageNumber
