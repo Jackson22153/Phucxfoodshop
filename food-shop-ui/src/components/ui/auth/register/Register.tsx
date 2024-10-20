@@ -25,10 +25,10 @@ export default function RegisterComponent(){
 
     const onClickRegister = async (e)=>{
         e.preventDefault();
-        setEmailIsShowed(isShowed => !isShowed);
         try {
             const res = await registerCustomer(registerInfo);
             if(200<=res.status&& res.status<300){
+                setEmailIsShowed(isShowed => !isShowed);
             }
         } catch (error) {
             setError(error.response.data.error)
