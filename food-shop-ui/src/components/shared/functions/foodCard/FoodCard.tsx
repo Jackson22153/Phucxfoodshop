@@ -3,7 +3,7 @@ import { ceilRound, convertNameForUrl } from "../../../../service/Convert";
 import foodPathContext from "../../../contexts/PathContext";
 import { displayProductImage } from "../../../../service/Image";
 import { CurrentProduct } from "../../../../model/Type";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface Props{
     foodInfo: CurrentProduct
@@ -17,9 +17,14 @@ export default function FoodCard(prop: Props){
     const name = convertNameForUrl(foodName);
     const url = `${foodPath}/${name}?sp=${foodID}`;
     const foodImageSrc = foodInfo.picture;
+    const navigate = useNavigate()
+
+    const onClickFood = ()=>{
+        navigate(url)
+    }
 
     return(
-        <div className="card position-relative" style={{height:"100%"}}>
+        <div id={`${foodName}-card`} className="card position-relative" style={{height:"100%"}} onClick={onClickFood}>
             {foodInfo.discountID!=null && foodInfo.discountPercent>0 &&
                 <div className="position-absolute mt-5">
                     <span className="badge rounded-pill badge-discount bg-danger ">
@@ -28,9 +33,7 @@ export default function FoodCard(prop: Props){
                 </div>
             }
             <div className="card-img-top product-card-image-container">
-                <Link to={url}>
-                    <img className="w-100 h-100" src={displayProductImage(foodImageSrc)} alt="Card image cap" />
-                </Link>
+                <img className="w-100 h-100" src={displayProductImage(foodImageSrc)} alt="Card image cap" />
             </div>
             <div className="card-body pt-0 product-card-body">
                 <span className="w-100 d-block text-body-tertiary">
@@ -59,11 +62,6 @@ export default function FoodCard(prop: Props){
                         </del>
                     }
                 </span>
-                {/* <div>
-                    <a href="" className="custom_dark-btn">
-                        Buy Now
-                    </a>
-                </div> */}
             </div>
         </div>
     )

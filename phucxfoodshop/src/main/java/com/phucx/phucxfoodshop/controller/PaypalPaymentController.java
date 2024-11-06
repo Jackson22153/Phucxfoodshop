@@ -24,8 +24,6 @@ import lombok.extern.slf4j.Slf4j;
 public class PaypalPaymentController {
     @Autowired
     private PaypalHandlerService paypalService;
-    @Value("${phucx.ui-url}")
-    private String uiUrl;
     @Value("${phucx.payment-successful-url}")
     private String successfulUrl;
     @Value("${phucx.payment-canceled-url}")

@@ -30,14 +30,14 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     public final static String TOPIC_ORDER = "/topic/order";
     public final static String TOPIC_EMPLOYEE_NOTIFICAITON_ORDER = "/topic/employee.notification.order";
     public final static String TOPIC_EMPLOYEE_NOTIFICAITON_ACCOUNT = "/topic/employee.notification.account";
-
-    @Value("${phucx.ui-url}")
-    private String uiUrl;
+    
+      @Value("${phucx.allowed-urls}")
+    private List<String> allowedUrls;
     
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/chat").setAllowedOrigins(uiUrl);
-        registry.addEndpoint("/chat").setAllowedOrigins(uiUrl).withSockJS();
+        registry.addEndpoint("/chat").setAllowedOrigins(allowedUrls.toArray(new String[0]));
+        registry.addEndpoint("/chat").setAllowedOrigins(allowedUrls.toArray(new String[0])).withSockJS();
     }
 
     @Override

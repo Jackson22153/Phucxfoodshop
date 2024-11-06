@@ -21,6 +21,7 @@ import com.phucx.phucxfoodshop.service.email.EmailService;
 import com.phucx.phucxfoodshop.service.jwt.JwtService;
 import com.phucx.phucxfoodshop.service.user.UserPasswordService;
 import com.phucx.phucxfoodshop.service.user.UserService;
+import com.phucx.phucxfoodshop.service.user.UserSysDetailsService;
 import com.phucx.phucxfoodshop.service.verificationtoken.VerificationTokenService;
 import com.phucx.phucxfoodshop.utils.RandomStringGeneratorUtils;
 
@@ -34,6 +35,8 @@ public class UserPasswordServiceImp implements UserPasswordService {
     private EmailService emailService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserSysDetailsService userDetailsService;
     @Autowired
     private JwtService jwtService;
     @Autowired
@@ -52,7 +55,7 @@ public class UserPasswordServiceImp implements UserPasswordService {
         String text = "Your new password is: " + password;
         emailService.sendMessage(user.getEmail(), PASSWORD_RESET_SUBJECT, text);
 
-        return userService.updateUserPassword(userID, password);
+        return userDetailsService.updateUserPassword(userID, password);
     }
 
     @Override
@@ -69,10 +72,10 @@ public class UserPasswordServiceImp implements UserPasswordService {
             throw new UserPasswordException("Your new password and old password can not match!");
         if(!userChangePassword.getEmail().equals(user.getEmail()))
             throw new UserPasswordException("Your email does not match with your original email!");
-        if(!userService.checkPassword(user.getPassword(), password))
+        if(!userDetailsService.checkPassword(user.getPassword(), password))
             throw new UserPasswordException("Your old password is wrong!");
         // update password
-        return userService.updateUserPassword(user.getUserID(), newPassword);
+        return userDetailsService.updateUserPassword(user.getUserID(), newPassword);
     }
 
     @Override
@@ -175,6 +178,6 @@ public class UserPasswordServiceImp implements UserPasswordService {
         if(!userChangePassword.getEmail().equals(user.getEmail()))
             throw new UserPasswordException("Your email does not match with your original email!");
         // update password
-        return userService.updateUserPassword(user.getUserID(), newPassword);
+        return userDetailsService.updateUserPassword(user.getUserID(), newPassword);
     }
 }

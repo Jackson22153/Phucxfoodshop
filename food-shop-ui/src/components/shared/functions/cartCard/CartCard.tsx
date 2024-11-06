@@ -55,14 +55,14 @@ export default function CartCard(prop: Props){
                 <h6 className="text-black mb-0">{name}</h6>
             </div>
             <div className="col-md-3 col-lg-2 col-xl-2 col-3 d-flex p-0">
-                <button className="btn btn-link px-2" onClick={onClickDecrement}>
+                <button className="btn btn-link px-2 decrement-btn" onClick={onClickDecrement}>
                     <FontAwesomeIcon icon={faMinus}/>
                 </button>
 
                 <input min="1" name="quantity" value={quantity} type="number"
                     onChange={onChangeQuantity} className="form-control form-control-sm product-quanlity-input" />
 
-                <button className="btn btn-link px-2" onClick={onClickIncrement}>
+                <button className="btn btn-link px-2 increment-btn" onClick={onClickIncrement}>
                     <FontAwesomeIcon icon={faPlus}/>
                 </button>
             </div>
@@ -70,7 +70,7 @@ export default function CartCard(prop: Props){
                 <h6 className="mb-0">$ {extendedPrice(product)}</h6>
             </div>
             <div className="col-md-1 col-lg-1 col-xl-1 text-end margin-left-auto">
-                <button className="text-muted btn btn-light" onClick={onClickRemove}>
+                <button className="text-muted btn btn-light delete-btn" onClick={onClickRemove}>
                     <FontAwesomeIcon icon={faTrash}/>
                 </button>
             </div>

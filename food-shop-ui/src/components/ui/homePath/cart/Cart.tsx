@@ -305,7 +305,7 @@ export default function CartComponent(){
                                                             <span>Price</span>
                                                         </div>
                                                         <div className="col-md-1 col-lg-1 col-xl-1 text-end">
-                                                            <button className="text-muted btn btn-light" onClick={onClickRemoveAllCartProducts}>
+                                                            <button className="text-muted btn btn-light" id='cart-delete-all-btn' onClick={onClickRemoveAllCartProducts}>
                                                                 <FontAwesomeIcon icon={faTrash}/>
                                                             </button>
                                                         </div>
@@ -313,7 +313,7 @@ export default function CartComponent(){
                                                     <hr className="my-4"/>
                                                     {cartOrder.products.map((product, index)=>(
                                                         <div className='cart-item' key={index}>
-                                                            <div className="row mb-4 d-flex justify-content-between align-items-center">
+                                                            <div className="row mb-4 d-flex justify-content-between align-items-center" id={`${product.productName}-cart-card`}>
                                                                 <input className="form-check-input cart-item-check-input" type="checkbox" 
                                                                     checked={product.isSelected} onChange={(_e)=>onChangeCheckedProduct(index)}/>
                                                                 <CartCard product={product} number={index}
@@ -364,7 +364,7 @@ export default function CartComponent(){
                                                         <h5 className="text-uppercase">Total price</h5>
                                                         <h5>$ {ceilRound(totalPrice + cartOrder.freight)}</h5>
                                                     </div>
-                                                    <button type="button" className="btn btn-dark btn-block btn-lg"
+                                                    <button type="button" className="btn btn-dark btn-block btn-lg" id='order-card-btn'
                                                         onClick={onClickPlaceOrder} disabled={cartOrder.products.length>0?false:true}
                                                         data-mdb-ripple-color="dark">
                                                             Order

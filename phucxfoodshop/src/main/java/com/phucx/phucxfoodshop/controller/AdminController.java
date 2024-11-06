@@ -26,7 +26,7 @@ import com.phucx.phucxfoodshop.service.customer.CustomerService;
 import com.phucx.phucxfoodshop.service.employee.EmployeeAdminService;
 import com.phucx.phucxfoodshop.service.employee.EmployeeService;
 import com.phucx.phucxfoodshop.service.user.UserPasswordService;
-import com.phucx.phucxfoodshop.service.user.UserService;
+import com.phucx.phucxfoodshop.service.user.UserSysDetailsService;
 
 import io.swagger.v3.oas.annotations.Operation;
 
@@ -45,7 +45,7 @@ public class AdminController {
     @Autowired
     private UserPasswordService userPasswordService;
     @Autowired
-    private UserService userService;
+    private UserSysDetailsService userSysDetailsService;
 
     @Operation(summary = "Check user role", 
         tags = {"get", "check", "admin"},
@@ -103,7 +103,7 @@ public class AdminController {
     public ResponseEntity<ResponseFormat> registerEmployee(
         @RequestBody UserRegisterInfo userRegisterInfo
     ){
-        Boolean status = userService.registerEmployee(userRegisterInfo);
+        Boolean status = userSysDetailsService.registerEmployee(userRegisterInfo);
         return ResponseEntity.ok().body(new ResponseFormat(status));
     }
 

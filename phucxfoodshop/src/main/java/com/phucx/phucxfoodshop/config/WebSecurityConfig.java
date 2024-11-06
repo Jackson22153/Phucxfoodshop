@@ -1,6 +1,7 @@
 package com.phucx.phucxfoodshop.config;
 
 import java.util.Collections;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -41,8 +42,8 @@ public class WebSecurityConfig {
     public final static String ROLE_CUSTOMER = "ROLE_CUSTOMER";
     public final static String ROLE_EMPLOYEE = "ROLE_EMPLOYEE";
     public final static String ROLE_ADMIN = "ROLE_ADMIN";
-    @Value("${phucx.ui-url}")
-    private String uiUrl;
+    @Value("${phucx.allowed-urls}")
+    private List<String> allowedUrls;
 
     @Bean
     public SecurityFilterChain dFilterChain(HttpSecurity http) throws Exception{
@@ -56,13 +57,12 @@ public class WebSecurityConfig {
             @Nullable
             public CorsConfiguration getCorsConfiguration(HttpServletRequest arg0) {
                 CorsConfiguration configuration = new CorsConfiguration();
-                configuration.setAllowedOrigins(Collections.singletonList(uiUrl));
+                configuration.setAllowedOrigins(allowedUrls);
                 configuration.setAllowedMethods(Collections.singletonList("*"));
                 configuration.setAllowedHeaders(Collections.singletonList("*"));
                 configuration.setAllowCredentials(true);
                 return configuration;
             }
-            
         }));
         // csrf
         http.csrf(csrf -> csrf.disable());

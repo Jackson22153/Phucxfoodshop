@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -95,9 +96,13 @@ public class ShippingServiceImp implements ShippingService{
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.set("token", shippingProperties.getToken());
         HttpEntity<Map<String, Object>> entity = new HttpEntity<>(headers);
-    
-        ResponseEntity<Map> response = restTemplate.postForEntity(
-            shippingProperties.getProvinceUrl(), entity, Map.class);
+
+        ResponseEntity<Map> response = restTemplate.exchange(
+            shippingProperties.getProvinceUrl(),
+            HttpMethod.GET, 
+            entity, 
+            Map.class);
+
         if(!response.getStatusCode().is2xxSuccessful()) return null;
         Map<String, Object> body = response.getBody();
         List<Province> data =  (List<Province>) body.get("data");

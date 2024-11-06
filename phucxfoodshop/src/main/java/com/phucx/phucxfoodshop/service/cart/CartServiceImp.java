@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.phucx.phucxfoodshop.config.ServerURLProperties;
 import com.phucx.phucxfoodshop.constant.CookieConstant;
 import com.phucx.phucxfoodshop.exceptions.CustomerNotFoundException;
 import com.phucx.phucxfoodshop.exceptions.EmptyCartException;
@@ -51,6 +52,8 @@ public class CartServiceImp implements CartService{
     private CustomerService customerService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private ServerURLProperties server;
 
     @Override
     public CartOrderInfo updateCartCookie(String encodedCartJson, List<CartProduct> products, HttpServletResponse response) 
@@ -108,6 +111,7 @@ public class CartServiceImp implements CartService{
         Cookie cookie = new Cookie(CookieConstant.CART_COOKIE, encodedData);
         cookie.setPath(CookieConstant.PATH_COOKIE);
         cookie.setMaxAge(CookieConstant.MAX_AGE);
+        cookie.setDomain(server.getDomain());
         return cookie;
     }
     

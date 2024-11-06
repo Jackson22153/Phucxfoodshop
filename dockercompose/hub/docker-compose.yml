@@ -12,7 +12,7 @@ services:
       - phucx
 
   phucxfoodshop:
-    image: jackson22153/phucxfoodshop:1.0.0
+    image: jackson22153/phucxfoodshop:4.0.0
     ports:
       - 8081:8081
     container_name: phucxfoodshop
@@ -31,22 +31,21 @@ services:
       - PAYMENT_SUCCESSFUL_URL=http://localhost:5173/order?status=successful
       - PAYMENT_CANCELED_URL=http://localhost:5173/order?status=canceled
       - UI_URL=http://localhost:5173
+      - ALLOWED_URLS=http://localhost:5173,https://localhost:5173
       - MYSQL_USERNAME=root
       - MYSQL_PASSWORD=10122003simp!simp
       - MYSQL_URL=jdbc:mysql://mysql:3306/phucxfoodshop
-      - TWILIO_CLIENT_ID={TWILIO_CLIENT_ID}
-      - TWILIO_CLIENT_SECRET={TWILIO_CLIENT_SECRET}
-      - TWILIO_SERVICE_SID={TWILIO_SERVICE_SID}
-      - PAYPAL_CLIENT_ID={PAYPAL_CLIENT_ID}
-      - PAYPAL_CLIENT_SECRET={PAYPAL_CLIENT_SECRET}
+      - PAYPAL_CLIENT_ID=${PAYPAL_CLIENT_ID}
+      - PAYPAL_CLIENT_SECRET=${PAYPAL_CLIENT_SECRET}
       - PRODUCT_IMAGE_LOCATION=/usr/src/app/image/product
       - CATEGORY_IMAGE_LOCATION=/usr/src/app/image/category
       - CUSTOMER_IMAGE_LOCATION=/usr/src/app/image/customer
       - EMPLOYEE_IMAGE_LOCATION=/usr/src/app/image/employee
-      - MAIL_USERNAME={MAIL_USERNAME}
-      - MAIL_PASSWORD={MAIL_PASSWORD}
-      - SHIP_SHOP_ID={SHIP_SHOP_ID}
-      - SHIP_TOKEN=f{SHIP_TOKEN}
+      - MAIL_USERNAME=${MAIL_USERNAME}
+      - MAIL_PASSWORD=${MAIL_PASSWORD}
+      - SHIP_SHOP_ID=${SHIP_SHOP_ID}
+      - SHIP_TOKEN=${SHIP_TOKEN}
+      - DOMAIN=localhost
     networks:
       - phucx
 

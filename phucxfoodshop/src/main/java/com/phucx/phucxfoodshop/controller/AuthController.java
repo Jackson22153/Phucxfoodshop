@@ -3,7 +3,6 @@ package com.phucx.phucxfoodshop.controller;
 import java.net.URI;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.phucx.phucxfoodshop.config.ServerURLProperties;
 import com.phucx.phucxfoodshop.exceptions.InvalidTokenException;
 import com.phucx.phucxfoodshop.exceptions.NotFoundException;
 import com.phucx.phucxfoodshop.exceptions.UserAuthenticationException;
@@ -28,7 +28,7 @@ import com.phucx.phucxfoodshop.model.UserRegisterInfo;
 import com.phucx.phucxfoodshop.service.email.EmailService;
 import com.phucx.phucxfoodshop.service.user.UserPasswordService;
 import com.phucx.phucxfoodshop.service.user.UserProfileService;
-import com.phucx.phucxfoodshop.service.user.UserService;
+import com.phucx.phucxfoodshop.service.user.UserSysDetailsService;
 import com.phucx.phucxfoodshop.utils.ServerUrlUtils;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -42,13 +42,13 @@ public class AuthController {
     @Autowired
     private UserProfileService userProfileService;
     @Autowired
-    private UserService userService;
+    private UserSysDetailsService userService;
     @Autowired
     private UserPasswordService userPasswordService;
     @Autowired
     private EmailService emailService;
-    @Value("${phucx.ui-url}")
-    private String uiUrl;
+    @Autowired
+    private ServerURLProperties serverURLProperties;
 
     @Operation(tags = {"public", "get", "login"}, summary = "Login endpoint",
         description = "Send a get request to /login endpoint as a Basic Authentication")
@@ -80,7 +80,7 @@ public class AuthController {
     @Operation(tags = {"public", "get", "verify token"}, summary = "User verification email")
     public ResponseEntity<Void> verifyEmail(@RequestParam String token){
         Boolean result = emailService.validateEmail(token);
-        String redirectUrl = uiUrl + "/auth";
+        String redirectUrl = serverURLProperties.getUiUrl() + "/auth";
         if(result){
             redirectUrl += "?status=true";
         }else{
@@ -96,7 +96,7 @@ public class AuthController {
     public ResponseEntity<ResponseFormat> forgotEmail(HttpServletRequest request,
         @RequestParam(name = "email") String email) {
 
-        Boolean result = userPasswordService.sendResetPasswordLink(uiUrl, email);
+        Boolean result = userPasswordService.sendResetPasswordLink(serverURLProperties.getUiUrl(), email);
         ResponseFormat responseFormat = new ResponseFormat(result);
         return ResponseEntity.ok().body(responseFormat);
     }

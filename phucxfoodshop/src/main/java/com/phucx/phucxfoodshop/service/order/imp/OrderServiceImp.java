@@ -264,6 +264,7 @@ public class OrderServiceImp implements OrderService{
             .registerStoredProcedureParameter(2, String.class, ParameterMode.IN)
             .setParameter(1, orderID)
             .setParameter(2, customerID);
+        procedure.execute();
         List<Object[]> results = procedure.getResultList();
         return results.stream().map(result ->{
 

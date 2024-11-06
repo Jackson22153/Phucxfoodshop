@@ -169,7 +169,7 @@ export default function FoodComponent(){
                                                 </span>
                                             </div>
                                         }
-                                        <img style={{maxWidth: "100%", margin: "auto"}} className="rounded-4 fit h-100" 
+                                        <img style={{width: "100%", margin: "auto"}} className="rounded-4 fit h-100" 
                                             src={displayProductImage(foodInfo.picture)} />
                                         {foodInfo.unitsInStock<=0&&
                                             <div className='out-of-stock'>Out of Stock</div>
