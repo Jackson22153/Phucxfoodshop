@@ -1,7 +1,7 @@
 # Phucxfoodshop
 ## Introduction
 An e-commerce platform specializes in selling food products to users, leveraging a robust monolithic architecture for simplicity and streamlined development. The application is containerized using Docker, ensuring consistent environments for development and deployment.
-## Functionalities
+### Functionalities
  • **User Authentication:** Allows users to register, log in, and log out.
  
  • **Shipping Integration:** Uses GHN API to calculate shipping costs.
@@ -15,7 +15,10 @@ An e-commerce platform specializes in selling food products to users, leveraging
  • **API Documentation:** Managed with Swagger/OpenAPI for RESTful API.
  
  • **Email Verification:** Required for registration, order placement, and password resets.
-
+### Technologies
+ • **Backend:** Spring Boot, Spring Security, Spring JPA, MySQL, Docker, WebSocket.
+ 
+ • **Frontend:** Typescript, React js
 ## Installation
 1. Open Terminal or Command prompt
 2. Navigate to ./Phucxfoodshop/dockercompose/hub/ (where the docker-compose.yml file is located)
